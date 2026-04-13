@@ -29,4 +29,3 @@ export class UserPublicService {
     return User.save(user);
   }
 }
-

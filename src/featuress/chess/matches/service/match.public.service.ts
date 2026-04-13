@@ -8,12 +8,16 @@ import { MatchDetailPublicDto } from '../dtos/public/match.detail.public.dto';
 export class MatchPublicService {
   async getAll(): Promise<MatchListPublicDto[]> {
     const matches = await Match.find();
-    return plainToInstance(MatchListPublicDto, matches, { excludeExtraneousValues: true });
+    return plainToInstance(MatchListPublicDto, matches, {
+      excludeExtraneousValues: true,
+    });
   }
 
   async getOne(id: number): Promise<MatchDetailPublicDto> {
     const match = await Match.findOneBy({ id });
     if (!match) throw new NotFoundException('Match with given id not found');
-    return plainToInstance(MatchDetailPublicDto, match, { excludeExtraneousValues: true });
+    return plainToInstance(MatchDetailPublicDto, match, {
+      excludeExtraneousValues: true,
+    });
   }
 }

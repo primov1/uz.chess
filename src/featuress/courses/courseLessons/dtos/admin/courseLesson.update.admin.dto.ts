@@ -5,8 +5,8 @@ import {
   IsOptional,
   IsString,
   MaxLength,
-  Min,
 } from 'class-validator';
+
 export class CourseLessonUpdateAdminDto {
   @IsNumber()
   @IsOptional()

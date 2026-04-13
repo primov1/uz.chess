@@ -57,7 +57,9 @@ export class Course extends BaseModel {
   @OneToMany(() => CourseReview, (review) => review.course, { cascade: false })
   reviews!: CourseReview[];
 
-  @OneToMany(() => CourseSection, (section) => section.course, { cascade: false })
+  @OneToMany(() => CourseSection, (section) => section.course, {
+    cascade: false,
+  })
   sections!: CourseSection[];
 
   @OneToMany(() => PurchasedCourse, (pc) => pc.course, { cascade: false })

@@ -16,7 +16,8 @@ export class CourseLikePublicService {
 
   async getOne(id: number) {
     const item = await CourseLike.findOneBy({ id });
-    if (!item) throw new NotFoundException('CourseLike with given id not found');
+    if (!item)
+      throw new NotFoundException('CourseLike with given id not found');
     return plainToInstance(CourseLikeDetailPublicDto, item, {
       excludeExtraneousValues: true,
     });
@@ -30,7 +31,8 @@ export class CourseLikePublicService {
    */
   async toggle(courseId: number, userId: number) {
     const course = await Course.findOneBy({ id: courseId });
-    if (!course) throw new NotFoundException(`Kurs topilmadi (id: ${courseId})`);
+    if (!course)
+      throw new NotFoundException(`Kurs topilmadi (id: ${courseId})`);
 
     const existing = await CourseLike.findOne({ where: { courseId, userId } });
 
@@ -39,7 +41,11 @@ export class CourseLikePublicService {
       // likesCount ni kamaytirish (0 dan past ketmasin)
       course.likesCount = Math.max(0, (course.likesCount || 0) - 1);
       await course.save();
-      return { liked: false, likesCount: course.likesCount, message: 'Kurs likedan olib tashlandi' };
+      return {
+        liked: false,
+        likesCount: course.likesCount,
+        message: 'Kurs likedan olib tashlandi',
+      };
     }
 
     const like = CourseLike.create({ courseId, userId } as CourseLike);

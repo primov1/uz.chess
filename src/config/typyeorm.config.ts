@@ -5,7 +5,7 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   url:
     process.env.DATABASE_URL ||
     'postgresql://postgres:1111@localhost:5432/chess.com',
-  synchronize: true,
+  synchronize: false,
   entities: [__dirname + '/../**/*.entity{.tpublics,.js}'],
   logging: false,
 };

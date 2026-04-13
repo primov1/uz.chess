@@ -10,13 +10,17 @@ import { MatchUpdateAdminDto } from '../dtos/admin/match.update.admin.dto';
 export class MatchAdminService {
   async getAll(): Promise<MatchListAdminDto[]> {
     const matches = await Match.find();
-    return plainToInstance(MatchListAdminDto, matches, { excludeExtraneousValues: true });
+    return plainToInstance(MatchListAdminDto, matches, {
+      excludeExtraneousValues: true,
+    });
   }
 
   async getOne(id: number): Promise<MatchDetailAdminDto> {
     const match = await Match.findOneBy({ id });
     if (!match) throw new NotFoundException('Match with given id not found');
-    return plainToInstance(MatchDetailAdminDto, match, { excludeExtraneousValues: true });
+    return plainToInstance(MatchDetailAdminDto, match, {
+      excludeExtraneousValues: true,
+    });
   }
 
   async create(payload: MatchCreateAdminDto): Promise<Match> {
@@ -27,7 +31,12 @@ export class MatchAdminService {
   async update(id: number, payload: MatchUpdateAdminDto): Promise<Match> {
     const match = await Match.findOneBy({ id });
     if (!match) throw new NotFoundException('Match with given id not found');
-    Object.assign(match, Object.fromEntries(Object.entries(payload).filter(([, v]) => v !== undefined)));
+    Object.assign(
+      match,
+      Object.fromEntries(
+        Object.entries(payload).filter(([, v]) => v !== undefined),
+      ),
+    );
     return Match.save(match);
   }
 

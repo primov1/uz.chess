@@ -5,12 +5,10 @@ import { AuthPublicController } from './controllers/auth.public.controller';
 import { AuthPublicService } from './services/auth.public.service';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { RolesGuard } from './guards/roles.guard';
-import { jwtConfig } from '../../config/jwt.config';
+import { jwtConfig } from '@/config/jwt.config';
 
 @Module({
-  imports: [
-    JwtModule.register(jwtConfig),
-  ],
+  imports: [JwtModule.register(jwtConfig)],
   controllers: [AuthPublicController],
   providers: [
     AuthPublicService,

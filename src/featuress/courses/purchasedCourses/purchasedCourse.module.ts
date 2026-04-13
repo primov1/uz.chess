@@ -5,7 +5,10 @@ import { PurchasedCourseAdminService } from './service/purchasedCourse.admin.ser
 import { PurchasedCoursePublicService } from './service/purchasedCourse.public.service';
 
 @Module({
-  controllers: [PurchasedCourseAdminController, PurchasedCoursePublicController],
+  controllers: [
+    PurchasedCourseAdminController,
+    PurchasedCoursePublicController,
+  ],
   providers: [PurchasedCourseAdminService, PurchasedCoursePublicService],
 })
 export class PurchasedCourseModule {}

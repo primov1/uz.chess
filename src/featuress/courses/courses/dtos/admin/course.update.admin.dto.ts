@@ -1,12 +1,12 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
 import {
-  IsBoolean,
   IsNumber,
   IsOptional,
   IsString,
   MaxLength,
   Min,
 } from 'class-validator';
+
 export class CourseUpdateAdminDto {
   @IsNumber()
   @IsOptional()

@@ -1,4 +1,10 @@
-import { IsString, IsEnum, MaxLength, IsOptional, IsDateString } from 'class-validator';
+import {
+  IsDateString,
+  IsEnum,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { LoginType } from '../../../users/entities/user.entity';
 

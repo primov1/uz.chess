@@ -10,6 +10,7 @@ import { DifficultyUpdateAdminDto } from '../dtos/admin/difficulty.update.admin.
 export class DifficultyAdminService {
   async getAll(): Promise<DifficultyListAdminDto[]> {
     const items = await Difficulty.find();
+
     return plainToInstance(DifficultyListAdminDto, items, {
       excludeExtraneousValues: true,
     });

@@ -1,4 +1,11 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { BaseModel } from '../../../../core/base-model';
 import { Course } from '../../courses/entities/course.entity';
 import { CourseLesson } from '../../courseLessons/entities/courseLesson.entity';

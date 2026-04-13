@@ -22,20 +22,6 @@ import { JwtPayload } from '../interfaces/jwt-payload.interface';
 export class AuthPublicService {
   constructor(private readonly jwtService: JwtService) {}
 
-  // ─── Token generatsiya ──────────────────────────────────────────────────────
-  private generateTokens(user: User) {
-    const payload: JwtPayload = {
-      sub: user.id,
-      login: user.login,
-      role: user.role,
-    };
-
-    const accessToken = this.jwtService.sign(payload, { expiresIn: '3h' });
-    const refreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
-
-    return { accessToken, refreshToken };
-  }
-
   // ─── Ro'yxatdan o'tish ─────────────────────────────────────────────────────
   async register(payload: AuthRegisterPublicDto) {
     const existing = await User.findOne({ where: { login: payload.login } });
@@ -73,7 +59,6 @@ export class AuthPublicService {
     return { message: 'OTP kod yuborildi', userId: user.id };
   }
 
-  // ... (verifyOtp, login, forgotPassword metodlari o'zgarishsiz qoladi)
   // ─── OTP tasdiqlash ─────────────────────────────────────────────────────────
   async verifyOtp(payload: AuthVerifyOtpPublicDto) {
     const user = await User.findOne({ where: { login: payload.login } });
@@ -103,6 +88,8 @@ export class AuthPublicService {
     const tokens = this.generateTokens(user);
     return { message: 'Tasdiqlandi', ...tokens };
   }
+
+  // ... (verifyOtp, login, forgotPassword metodlari o'zgarishsiz qoladi)
 
   async login(payload: AuthLoginPublicDto) {
     const user = await User.findOne({ where: { login: payload.login } });
@@ -182,5 +169,19 @@ export class AuthPublicService {
         'Refresh token yaroqsiz yoki muddati tugagan',
       );
     }
+  }
+
+  // ─── Token generatsiya ──────────────────────────────────────────────────────
+  private generateTokens(user: User) {
+    const payload: JwtPayload = {
+      sub: user.id,
+      login: user.login,
+      role: user.role,
+    };
+
+    const accessToken = this.jwtService.sign(payload, { expiresIn: '3h' });
+    const refreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
+
+    return { accessToken, refreshToken };
   }
 }

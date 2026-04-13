@@ -39,7 +39,11 @@ export class BookLikePublicService {
       // likesCount ni kamaytirish (0 dan past ketmasin)
       book.likesCount = Math.max(0, (book.likesCount || 0) - 1);
       await book.save();
-      return { liked: false, likesCount: book.likesCount, message: 'Kitob likedan olib tashlandi' };
+      return {
+        liked: false,
+        likesCount: book.likesCount,
+        message: 'Kitob likedan olib tashlandi',
+      };
     }
 
     const like = BookLike.create({ bookId, userId } as BookLike);

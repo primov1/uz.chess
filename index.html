@@ -1,0 +1,1485 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UzChess — Shaxmat Platformasi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Nunito:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0d0f14;
+  --bg2: #141720;
+  --bg3: #1a1e2e;
+  --bg4: #1f2436;
+  --card: #161b28;
+  --border: #252a3a;
+  --blue: #2563eb;
+  --blue-l: #3b82f6;
+  --blue-dim: rgba(37,99,235,0.15);
+  --cyan: #06b6d4;
+  --text: #e2e8f0;
+  --text2: #94a3b8;
+  --text3: #64748b;
+  --accent: #f59e0b;
+  --green: #10b981;
+  --red: #ef4444;
+  --purple: #8b5cf6;
+  --sidebar: 240px;
+  --radius: 10px;
+  --font-head: 'Rajdhani', sans-serif;
+  --font-body: 'Nunito', sans-serif;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:var(--bg); color:var(--text); font-family:var(--font-body); min-height:100vh; overflow-x:hidden; }
+a { text-decoration:none; color:inherit; }
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width:5px; height:5px; }
+::-webkit-scrollbar-track { background:var(--bg2); }
+::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+
+/* ─── LAYOUT ─── */
+.layout { display:flex; min-height:100vh; }
+.sidebar {
+  width:var(--sidebar); background:var(--bg2); border-right:1px solid var(--border);
+  display:flex; flex-direction:column; position:fixed; top:0; left:0; height:100vh; z-index:100;
+  transition:transform .3s;
+}
+.main { margin-left:var(--sidebar); flex:1; display:flex; flex-direction:column; }
+.topbar {
+  height:60px; background:var(--bg2); border-bottom:1px solid var(--border);
+  display:flex; align-items:center; justify-content:space-between; padding:0 24px;
+  position:sticky; top:0; z-index:50;
+}
+.content { flex:1; padding:28px 28px 40px; }
+
+/* ─── SIDEBAR ─── */
+.logo {
+  padding:20px 20px 16px; border-bottom:1px solid var(--border);
+  display:flex; align-items:center; gap:10px;
+}
+.logo-icon {
+  width:36px; height:36px; background:var(--blue); border-radius:8px;
+  display:flex; align-items:center; justify-content:center; font-size:18px;
+}
+.logo-text { font-family:var(--font-head); font-size:22px; font-weight:700; letter-spacing:1px; }
+.logo-text span { color:var(--blue-l); }
+
+.nav { flex:1; padding:16px 0; overflow-y:auto; }
+.nav-section { padding:0 12px 8px; }
+.nav-label { font-size:10px; font-weight:700; letter-spacing:2px; color:var(--text3); text-transform:uppercase; padding:8px 8px 4px; }
+.nav-item {
+  display:flex; align-items:center; gap:10px; padding:9px 10px; border-radius:8px;
+  cursor:pointer; margin-bottom:2px; color:var(--text2); font-size:14px; font-weight:600;
+  transition:all .2s; position:relative;
+}
+.nav-item:hover { background:var(--bg3); color:var(--text); }
+.nav-item.active { background:var(--blue-dim); color:var(--blue-l); }
+.nav-item.active::before {
+  content:''; position:absolute; left:0; top:50%; transform:translateY(-50%);
+  width:3px; height:60%; background:var(--blue-l); border-radius:0 3px 3px 0;
+}
+.nav-item .ico { width:18px; text-align:center; font-size:16px; }
+.nav-badge {
+  margin-left:auto; background:var(--blue); color:#fff; font-size:10px;
+  font-weight:700; padding:2px 6px; border-radius:20px;
+}
+
+.sidebar-bottom {
+  border-top:1px solid var(--border); padding:16px;
+}
+.user-card {
+  display:flex; align-items:center; gap:10px; padding:10px; border-radius:8px;
+  cursor:pointer; transition:background .2s;
+}
+.user-card:hover { background:var(--bg3); }
+.avatar {
+  width:36px; height:36px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex; align-items:center; justify-content:center; font-weight:700; font-size:14px; flex-shrink:0;
+}
+.user-info { flex:1; min-width:0; }
+.user-name { font-weight:700; font-size:13px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.user-role { font-size:11px; color:var(--text3); }
+
+/* ─── TOPBAR ─── */
+.page-title { font-family:var(--font-head); font-size:20px; font-weight:700; letter-spacing:.5px; }
+.topbar-right { display:flex; align-items:center; gap:12px; }
+.topbar-btn {
+  width:36px; height:36px; border-radius:8px; background:var(--bg3); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:16px;
+  transition:all .2s; color:var(--text2);
+}
+.topbar-btn:hover { background:var(--bg4); color:var(--text); }
+.search-bar {
+  display:flex; align-items:center; gap:8px; background:var(--bg3); border:1px solid var(--border);
+  border-radius:8px; padding:6px 12px; width:220px;
+}
+.search-bar input { background:none; border:none; outline:none; color:var(--text); font-size:13px; font-family:var(--font-body); width:100%; }
+.search-bar input::placeholder { color:var(--text3); }
+
+/* ─── PAGES ─── */
+.page { display:none; }
+.page.active { display:block; animation:fadeIn .3s ease; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+
+/* ─── STATS GRID ─── */
+.stats-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-bottom:24px; }
+.stat-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:20px; position:relative; overflow:hidden; transition:transform .2s;
+}
+.stat-card:hover { transform:translateY(-2px); }
+.stat-card::after {
+  content:''; position:absolute; top:0; right:0; width:80px; height:80px;
+  border-radius:50%; background:var(--accent-color,var(--blue)); opacity:.06;
+  transform:translate(20px,-20px);
+}
+.stat-top { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.stat-icon { font-size:22px; }
+.stat-badge { font-size:11px; font-weight:700; padding:3px 8px; border-radius:20px; }
+.badge-up { background:rgba(16,185,129,.15); color:var(--green); }
+.badge-down { background:rgba(239,68,68,.15); color:var(--red); }
+.stat-num { font-family:var(--font-head); font-size:32px; font-weight:700; line-height:1; }
+.stat-label { font-size:12px; color:var(--text2); margin-top:4px; }
+
+/* ─── CARDS ─── */
+.card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  overflow:hidden;
+}
+.card-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:16px 20px; border-bottom:1px solid var(--border);
+}
+.card-title { font-family:var(--font-head); font-size:16px; font-weight:700; letter-spacing:.3px; }
+.card-body { padding:20px; }
+
+/* ─── TABLE ─── */
+.table-wrap { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:13px; }
+thead th {
+  text-align:left; padding:10px 14px; font-size:11px; font-weight:700;
+  letter-spacing:1px; text-transform:uppercase; color:var(--text3);
+  border-bottom:1px solid var(--border); white-space:nowrap;
+}
+tbody td { padding:12px 14px; border-bottom:1px solid var(--border); color:var(--text2); vertical-align:middle; }
+tbody tr:last-child td { border-bottom:none; }
+tbody tr:hover td { background:rgba(255,255,255,.02); }
+.td-main { color:var(--text); font-weight:600; }
+
+/* ─── BUTTONS ─── */
+.btn {
+  display:inline-flex; align-items:center; gap:6px; padding:8px 16px;
+  border-radius:8px; border:none; cursor:pointer; font-size:13px; font-weight:700;
+  font-family:var(--font-body); transition:all .2s; white-space:nowrap;
+}
+.btn-primary { background:var(--blue); color:#fff; }
+.btn-primary:hover { background:var(--blue-l); }
+.btn-secondary { background:var(--bg3); color:var(--text2); border:1px solid var(--border); }
+.btn-secondary:hover { background:var(--bg4); color:var(--text); }
+.btn-danger { background:rgba(239,68,68,.15); color:var(--red); }
+.btn-danger:hover { background:rgba(239,68,68,.25); }
+.btn-success { background:rgba(16,185,129,.15); color:var(--green); }
+.btn-sm { padding:5px 10px; font-size:12px; }
+.btn-icon { width:32px; height:32px; padding:0; justify-content:center; border-radius:6px; }
+
+/* ─── STATUS BADGE ─── */
+.status { display:inline-flex; align-items:center; gap:4px; padding:3px 10px; border-radius:20px; font-size:11px; font-weight:700; }
+.status::before { content:''; width:5px; height:5px; border-radius:50%; background:currentColor; }
+.status-active { background:rgba(16,185,129,.12); color:var(--green); }
+.status-inactive { background:rgba(100,116,139,.12); color:var(--text3); }
+.status-pending { background:rgba(245,158,11,.12); color:var(--accent); }
+
+/* ─── GRID 2COL ─── */
+.grid2 { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+.grid3 { display:grid; grid-template-columns:repeat(3,1fr); gap:16px; }
+
+/* ─── PLAYER CARD ─── */
+.player-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:20px; display:flex; align-items:center; gap:14px; transition:all .2s;
+  cursor:pointer;
+}
+.player-card:hover { border-color:var(--blue); transform:translateY(-2px); box-shadow:0 4px 20px rgba(37,99,235,.15); }
+.player-rank {
+  width:28px; height:28px; border-radius:6px; background:var(--bg3);
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-head); font-size:14px; font-weight:700; color:var(--text3); flex-shrink:0;
+}
+.player-rank.gold { background:rgba(245,158,11,.15); color:var(--accent); }
+.player-rank.silver { background:rgba(148,163,184,.15); color:#94a3b8; }
+.player-rank.bronze { background:rgba(180,83,9,.15); color:#b45309; }
+.player-avatar {
+  width:44px; height:44px; border-radius:50%; background:var(--bg3);
+  display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0;
+  border:2px solid var(--border);
+}
+.player-info { flex:1; min-width:0; }
+.player-name { font-weight:700; font-size:14px; margin-bottom:2px; }
+.player-country { font-size:12px; color:var(--text3); }
+.player-rating { text-align:right; }
+.player-elo { font-family:var(--font-head); font-size:20px; font-weight:700; color:var(--blue-l); }
+.player-elo-label { font-size:10px; color:var(--text3); }
+
+/* ─── COURSE CARD ─── */
+.course-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  overflow:hidden; transition:all .2s; cursor:pointer;
+}
+.course-card:hover { border-color:var(--blue); transform:translateY(-2px); box-shadow:0 4px 20px rgba(37,99,235,.12); }
+.course-thumb {
+  height:140px; background:linear-gradient(135deg,var(--bg3),var(--bg4));
+  display:flex; align-items:center; justify-content:center; font-size:48px;
+  position:relative; overflow:hidden;
+}
+.course-thumb::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to bottom,transparent 50%,rgba(0,0,0,.4));
+}
+.course-badge {
+  position:absolute; top:10px; right:10px; z-index:1;
+  background:var(--blue); color:#fff; font-size:10px; font-weight:700;
+  padding:3px 8px; border-radius:20px;
+}
+.course-body { padding:14px; }
+.course-title { font-weight:700; font-size:14px; margin-bottom:6px; line-height:1.4; }
+.course-meta { display:flex; gap:12px; margin-bottom:10px; }
+.course-meta-item { display:flex; align-items:center; gap:4px; font-size:11px; color:var(--text3); }
+.course-footer { display:flex; align-items:center; justify-content:space-between; }
+.course-price { font-family:var(--font-head); font-size:18px; font-weight:700; color:var(--accent); }
+.course-price-old { font-size:12px; color:var(--text3); text-decoration:line-through; margin-left:6px; }
+.stars { color:var(--accent); font-size:12px; }
+
+/* ─── NEWS CARD ─── */
+.news-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  overflow:hidden; transition:all .2s; cursor:pointer;
+}
+.news-card:hover { border-color:var(--blue); }
+.news-thumb {
+  height:160px; background:linear-gradient(135deg,#1e3a5f,#0f2744);
+  display:flex; align-items:center; justify-content:center; font-size:40px;
+}
+.news-body { padding:14px; }
+.news-title { font-weight:700; font-size:14px; line-height:1.5; margin-bottom:8px; }
+.news-excerpt { font-size:12px; color:var(--text2); line-height:1.6; margin-bottom:10px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+.news-footer { display:flex; align-items:center; justify-content:space-between; }
+.news-date { font-size:11px; color:var(--text3); }
+.news-views { font-size:11px; color:var(--text3); display:flex; align-items:center; gap:3px; }
+
+/* ─── FORM ─── */
+.form-group { margin-bottom:16px; }
+.form-label { display:block; font-size:12px; font-weight:700; color:var(--text2); margin-bottom:6px; letter-spacing:.5px; text-transform:uppercase; }
+.form-control {
+  width:100%; padding:10px 14px; background:var(--bg3); border:1px solid var(--border);
+  border-radius:8px; color:var(--text); font-size:13px; font-family:var(--font-body);
+  outline:none; transition:border-color .2s;
+}
+.form-control:focus { border-color:var(--blue); }
+.form-control::placeholder { color:var(--text3); }
+select.form-control { cursor:pointer; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+
+/* ─── MODAL ─── */
+.modal-overlay {
+  position:fixed; inset:0; background:rgba(0,0,0,.7); z-index:200;
+  display:none; align-items:center; justify-content:center; padding:20px;
+}
+.modal-overlay.open { display:flex; }
+.modal {
+  background:var(--bg2); border:1px solid var(--border); border-radius:14px;
+  width:100%; max-width:500px; max-height:90vh; overflow-y:auto;
+  animation:modalIn .2s ease;
+}
+@keyframes modalIn { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
+.modal-header {
+  display:flex; align-items:center; justify-content:space-between;
+  padding:20px 24px; border-bottom:1px solid var(--border);
+}
+.modal-title { font-family:var(--font-head); font-size:18px; font-weight:700; }
+.modal-close {
+  width:30px; height:30px; border-radius:6px; background:var(--bg3);
+  border:none; color:var(--text2); cursor:pointer; font-size:16px;
+  display:flex; align-items:center; justify-content:center;
+}
+.modal-body { padding:24px; }
+.modal-footer { padding:16px 24px; border-top:1px solid var(--border); display:flex; justify-content:flex-end; gap:10px; }
+
+/* ─── MATCH CARD ─── */
+.match-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  padding:16px; margin-bottom:10px;
+}
+.match-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+.match-type { font-size:11px; font-weight:700; padding:3px 8px; border-radius:20px; }
+.match-classic { background:rgba(37,99,235,.15); color:var(--blue-l); }
+.match-rapid { background:rgba(16,185,129,.15); color:var(--green); }
+.match-blitz { background:rgba(245,158,11,.15); color:var(--accent); }
+.match-players { display:grid; grid-template-columns:1fr auto 1fr; gap:10px; align-items:center; }
+.match-player { text-align:center; }
+.match-player-name { font-weight:700; font-size:13px; }
+.match-player-country { font-size:11px; color:var(--text3); }
+.match-score {
+  font-family:var(--font-head); font-size:24px; font-weight:700;
+  display:flex; align-items:center; gap:8px;
+}
+.score-w { color:var(--green); }
+.score-d { color:var(--text3); }
+.score-l { color:var(--red); }
+.vs { color:var(--text3); font-size:14px; }
+
+/* ─── CHART MINI ─── */
+.mini-chart { display:flex; align-items:flex-end; gap:3px; height:48px; }
+.bar {
+  flex:1; background:var(--blue-dim); border-radius:3px 3px 0 0;
+  transition:height .5s ease; position:relative;
+}
+.bar:hover { background:var(--blue); }
+.bar.active { background:var(--blue); }
+
+/* ─── TABS ─── */
+.tabs { display:flex; gap:4px; border-bottom:1px solid var(--border); margin-bottom:20px; }
+.tab {
+  padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer;
+  border-bottom:2px solid transparent; color:var(--text2); transition:all .2s;
+  margin-bottom:-1px;
+}
+.tab:hover { color:var(--text); }
+.tab.active { color:var(--blue-l); border-bottom-color:var(--blue-l); }
+
+/* ─── PAGINATION ─── */
+.pagination { display:flex; align-items:center; gap:6px; justify-content:center; margin-top:20px; }
+.page-btn {
+  width:32px; height:32px; border-radius:6px; background:var(--bg3); border:1px solid var(--border);
+  display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:13px; font-weight:600;
+  transition:all .2s; color:var(--text2);
+}
+.page-btn:hover, .page-btn.active { background:var(--blue); color:#fff; border-color:var(--blue); }
+
+/* ─── EMPTY STATE ─── */
+.empty { text-align:center; padding:40px; color:var(--text3); }
+.empty-icon { font-size:40px; margin-bottom:12px; }
+.empty-text { font-size:14px; }
+
+/* ─── BOOK CARD ─── */
+.book-card {
+  background:var(--card); border:1px solid var(--border); border-radius:var(--radius);
+  overflow:hidden; transition:all .2s; cursor:pointer;
+}
+.book-card:hover { border-color:var(--purple); transform:translateY(-2px); }
+.book-cover {
+  height:160px; display:flex; align-items:center; justify-content:center; font-size:48px;
+  position:relative;
+}
+.book-body { padding:14px; }
+.book-title { font-weight:700; font-size:13px; margin-bottom:4px; line-height:1.4; }
+.book-author { font-size:11px; color:var(--text3); margin-bottom:8px; }
+.book-footer { display:flex; align-items:center; justify-content:space-between; }
+.book-lang { font-size:10px; padding:2px 8px; border-radius:20px; background:var(--bg3); color:var(--text3); }
+.book-likes { font-size:11px; color:var(--text2); display:flex; align-items:center; gap:3px; }
+
+/* ─── PROFILE ─── */
+.profile-hero {
+  background:linear-gradient(135deg,var(--bg3),var(--bg4));
+  border:1px solid var(--border); border-radius:var(--radius);
+  padding:28px; margin-bottom:20px; display:flex; align-items:center; gap:20px;
+}
+.profile-avatar-big {
+  width:80px; height:80px; border-radius:50%; background:linear-gradient(135deg,var(--blue),var(--purple));
+  display:flex; align-items:center; justify-content:center; font-size:32px; font-weight:700;
+  border:3px solid var(--border); flex-shrink:0;
+}
+.profile-details h2 { font-family:var(--font-head); font-size:26px; font-weight:700; }
+.profile-details p { color:var(--text2); font-size:13px; margin-top:4px; }
+.profile-stats { display:flex; gap:20px; margin-top:12px; }
+.profile-stat { text-align:center; }
+.profile-stat-num { font-family:var(--font-head); font-size:20px; font-weight:700; color:var(--blue-l); }
+.profile-stat-lbl { font-size:11px; color:var(--text3); }
+
+/* ─── TOAST ─── */
+.toast-wrap { position:fixed; bottom:20px; right:20px; z-index:300; display:flex; flex-direction:column; gap:8px; }
+.toast {
+  background:var(--bg2); border:1px solid var(--border); border-radius:10px;
+  padding:12px 16px; min-width:240px; display:flex; align-items:center; gap:10px;
+  animation:toastIn .3s ease;
+}
+@keyframes toastIn { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+.toast-success { border-left:3px solid var(--green); }
+.toast-error { border-left:3px solid var(--red); }
+.toast-info { border-left:3px solid var(--blue); }
+
+/* ─── RESPONSIVE ─── */
+@media(max-width:900px) {
+  .stats-grid { grid-template-columns:1fr 1fr; }
+  .grid3 { grid-template-columns:1fr 1fr; }
+}
+@media(max-width:600px) {
+  .sidebar { transform:translateX(-100%); }
+  .sidebar.open { transform:translateX(0); }
+  .main { margin-left:0; }
+  .stats-grid { grid-template-columns:1fr; }
+  .grid2 { grid-template-columns:1fr; }
+}
+</style>
+</head>
+<body>
+<div class="layout">
+
+<!-- ═══════════════════ SIDEBAR ═══════════════════ -->
+<aside class="sidebar" id="sidebar">
+  <div class="logo">
+    <div class="logo-icon">♟</div>
+    <div class="logo-text">Uz<span>Chess</span></div>
+  </div>
+
+  <nav class="nav">
+    <div class="nav-section">
+      <div class="nav-label">Bosh sahifa</div>
+      <div class="nav-item active" onclick="navigate('dashboard')">
+        <span class="ico">📊</span> Dashboard
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Shaxmat</div>
+      <div class="nav-item" onclick="navigate('players')">
+        <span class="ico">♟</span> O'yinchilar
+        <span class="nav-badge">24</span>
+      </div>
+      <div class="nav-item" onclick="navigate('matches')">
+        <span class="ico">⚔️</span> O'yinlar
+      </div>
+      <div class="nav-item" onclick="navigate('countries')">
+        <span class="ico">🌍</span> Mamlakatlar
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Kurslar</div>
+      <div class="nav-item" onclick="navigate('courses')">
+        <span class="ico">🎓</span> Kurslar
+      </div>
+      <div class="nav-item" onclick="navigate('course-categories')">
+        <span class="ico">📁</span> Kategoriyalar
+      </div>
+      <div class="nav-item" onclick="navigate('purchased')">
+        <span class="ico">🛒</span> Xaridlar
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Kutubxona</div>
+      <div class="nav-item" onclick="navigate('books')">
+        <span class="ico">📚</span> Kitoblar
+      </div>
+      <div class="nav-item" onclick="navigate('book-categories')">
+        <span class="ico">🏷️</span> Kategoriyalar
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Yangiliklar</div>
+      <div class="nav-item" onclick="navigate('news')">
+        <span class="ico">📰</span> Yangiliklar
+        <span class="nav-badge">3</span>
+      </div>
+    </div>
+
+    <div class="nav-section">
+      <div class="nav-label">Umumiy</div>
+      <div class="nav-item" onclick="navigate('users')">
+        <span class="ico">👥</span> Foydalanuvchilar
+      </div>
+      <div class="nav-item" onclick="navigate('reports')">
+        <span class="ico">🚩</span> Shikoyatlar
+      </div>
+      <div class="nav-item" onclick="navigate('languages')">
+        <span class="ico">🌐</span> Tillar
+      </div>
+      <div class="nav-item" onclick="navigate('terms')">
+        <span class="ico">📋</span> Shartlar
+      </div>
+    </div>
+  </nav>
+
+  <div class="sidebar-bottom">
+    <div class="user-card" onclick="navigate('profile')">
+      <div class="avatar">A</div>
+      <div class="user-info">
+        <div class="user-name">Admin User</div>
+        <div class="user-role">Super Admin</div>
+      </div>
+      <span style="color:var(--text3);font-size:14px">⚙</span>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══════════════════ MAIN ═══════════════════ -->
+<div class="main">
+  <div class="topbar">
+    <div style="display:flex;align-items:center;gap:12px">
+      <button class="topbar-btn" onclick="document.getElementById('sidebar').classList.toggle('open')" style="display:none" id="menu-btn">☰</button>
+      <div class="page-title" id="page-title">Dashboard</div>
+    </div>
+    <div class="topbar-right">
+      <div class="search-bar">
+        <span style="color:var(--text3);font-size:14px">🔍</span>
+        <input type="text" placeholder="Qidirish...">
+      </div>
+      <div class="topbar-btn" title="Bildirishnomalar" onclick="showToast('3 ta yangi bildirishnoma','info')">🔔</div>
+      <div class="topbar-btn" onclick="navigate('profile')">👤</div>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ══ DASHBOARD ══ -->
+    <div class="page active" id="page-dashboard">
+      <div class="stats-grid">
+        <div class="stat-card" style="--accent-color:var(--blue)">
+          <div class="stat-top">
+            <span class="stat-icon">👥</span>
+            <span class="stat-badge badge-up">+12%</span>
+          </div>
+          <div class="stat-num">1,248</div>
+          <div class="stat-label">Jami foydalanuvchilar</div>
+        </div>
+        <div class="stat-card" style="--accent-color:var(--green)">
+          <div class="stat-top">
+            <span class="stat-icon">♟</span>
+            <span class="stat-badge badge-up">+5%</span>
+          </div>
+          <div class="stat-num">24</div>
+          <div class="stat-label">Ro'yxatdagi o'yinchilar</div>
+        </div>
+        <div class="stat-card" style="--accent-color:var(--accent)">
+          <div class="stat-top">
+            <span class="stat-icon">🎓</span>
+            <span class="stat-badge badge-up">+8%</span>
+          </div>
+          <div class="stat-num">36</div>
+          <div class="stat-label">Faol kurslar</div>
+        </div>
+        <div class="stat-card" style="--accent-color:var(--purple)">
+          <div class="stat-top">
+            <span class="stat-icon">📚</span>
+            <span class="stat-badge badge-down">-2%</span>
+          </div>
+          <div class="stat-num">142</div>
+          <div class="stat-label">Kutubxona kitoblari</div>
+        </div>
+      </div>
+
+      <div class="grid2" style="margin-bottom:20px">
+        <!-- Top o'yinchilar -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">🏆 Top O'yinchilar</div>
+            <button class="btn btn-secondary btn-sm" onclick="navigate('players')">Barchasi</button>
+          </div>
+          <div class="card-body" style="padding:12px">
+            <div class="player-card" style="padding:12px;margin-bottom:8px">
+              <div class="player-rank gold">1</div>
+              <div class="player-avatar">🧑</div>
+              <div class="player-info">
+                <div class="player-name">Nodirbek Abdusattorov</div>
+                <div class="player-country">🇺🇿 O'zbekiston</div>
+              </div>
+              <div class="player-rating">
+                <div class="player-elo">2757</div>
+                <div class="player-elo-label">Klassik</div>
+              </div>
+            </div>
+            <div class="player-card" style="padding:12px;margin-bottom:8px">
+              <div class="player-rank silver">2</div>
+              <div class="player-avatar">👨</div>
+              <div class="player-info">
+                <div class="player-name">Javokhir Sindarov</div>
+                <div class="player-country">🇺🇿 O'zbekiston</div>
+              </div>
+              <div class="player-rating">
+                <div class="player-elo">2685</div>
+                <div class="player-elo-label">Klassik</div>
+              </div>
+            </div>
+            <div class="player-card" style="padding:12px">
+              <div class="player-rank bronze">3</div>
+              <div class="player-avatar">🧑</div>
+              <div class="player-info">
+                <div class="player-name">Shamsiddin Vokhidov</div>
+                <div class="player-country">🇺🇿 O'zbekiston</div>
+              </div>
+              <div class="player-rating">
+                <div class="player-elo">2648</div>
+                <div class="player-elo-label">Klassik</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- So'nggi yangiliklar -->
+        <div class="card">
+          <div class="card-header">
+            <div class="card-title">📰 So'nggi Yangiliklar</div>
+            <button class="btn btn-secondary btn-sm" onclick="navigate('news')">Barchasi</button>
+          </div>
+          <div class="card-body" style="padding:0">
+            <div style="padding:14px;border-bottom:1px solid var(--border);cursor:pointer" class="news-row">
+              <div style="font-weight:700;font-size:13px;margin-bottom:4px">O'zbekiston jamoasi Olimpiada finalida!</div>
+              <div style="font-size:11px;color:var(--text3)">2 soat oldin • 1,240 ko'rish</div>
+            </div>
+            <div style="padding:14px;border-bottom:1px solid var(--border);cursor:pointer" class="news-row">
+              <div style="font-weight:700;font-size:13px;margin-bottom:4px">Abdusattorov Rapid chempion bo'ldi</div>
+              <div style="font-size:11px;color:var(--text3)">1 kun oldin • 3,580 ko'rish</div>
+            </div>
+            <div style="padding:14px;cursor:pointer" class="news-row">
+              <div style="font-weight:700;font-size:13px;margin-bottom:4px">Yangi kurslar platformada mavjud</div>
+              <div style="font-size:11px;color:var(--text3)">3 kun oldin • 892 ko'rish</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- So'nggi o'yinlar -->
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">⚔️ So'nggi O'yinlar</div>
+          <button class="btn btn-secondary btn-sm" onclick="navigate('matches')">Barchasi</button>
+        </div>
+        <div class="card-body">
+          <div class="match-card">
+            <div class="match-header">
+              <span class="match-type match-classic">Klassik</span>
+              <span style="font-size:11px;color:var(--text3)">2025-04-01 • 42 hamla</span>
+            </div>
+            <div class="match-players">
+              <div class="match-player">
+                <div class="match-player-name">N. Abdusattorov</div>
+                <div class="match-player-country">🇺🇿</div>
+              </div>
+              <div class="match-score"><span class="score-w">1</span><span class="vs">:</span><span class="score-l">0</span></div>
+              <div class="match-player">
+                <div class="match-player-name">M. Carlsen</div>
+                <div class="match-player-country">🇳🇴</div>
+              </div>
+            </div>
+          </div>
+          <div class="match-card">
+            <div class="match-header">
+              <span class="match-type match-blitz">Blitz</span>
+              <span style="font-size:11px;color:var(--text3)">2025-03-30 • 31 hamla</span>
+            </div>
+            <div class="match-players">
+              <div class="match-player">
+                <div class="match-player-name">J. Sindarov</div>
+                <div class="match-player-country">🇺🇿</div>
+              </div>
+              <div class="match-score"><span class="score-d">½</span><span class="vs">:</span><span class="score-d">½</span></div>
+              <div class="match-player">
+                <div class="match-player-name">F. Caruana</div>
+                <div class="match-player-country">🇺🇸</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PLAYERS ══ -->
+    <div class="page" id="page-players">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <div></div>
+        <button class="btn btn-primary" onclick="openModal('player-modal')">+ Yangi O'yinchi</button>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">♟ Barcha O'yinchilar</div>
+          <div style="display:flex;gap:8px">
+            <input type="text" class="form-control" style="width:180px;padding:6px 10px;font-size:12px" placeholder="Qidirish...">
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th><th>O'yinchi</th><th>Mamlakat</th><th>Klassik</th><th>Rapid</th><th>Blitz</th><th>Amallar</th>
+              </tr>
+            </thead>
+            <tbody id="players-tbody">
+            </tbody>
+          </table>
+        </div>
+        <div class="pagination" style="padding:16px">
+          <div class="page-btn">‹</div>
+          <div class="page-btn active">1</div>
+          <div class="page-btn">2</div>
+          <div class="page-btn">3</div>
+          <div class="page-btn">›</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ MATCHES ══ -->
+    <div class="page" id="page-matches">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+        <button class="btn btn-primary" onclick="openModal('match-modal')">+ Yangi O'yin</button>
+      </div>
+      <div class="tabs">
+        <div class="tab active" onclick="switchTab(this)">Barchasi</div>
+        <div class="tab" onclick="switchTab(this)">Klassik</div>
+        <div class="tab" onclick="switchTab(this)">Rapid</div>
+        <div class="tab" onclick="switchTab(this)">Blitz</div>
+      </div>
+      <div id="matches-list"></div>
+    </div>
+
+    <!-- ══ COUNTRIES ══ -->
+    <div class="page" id="page-countries">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+        <button class="btn btn-primary" onclick="openModal('country-modal')">+ Yangi Mamlakat</button>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">🌍 Mamlakatlar</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Mamlakat</th><th>Kod</th><th>O'yinchilar</th><th>Amallar</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="td-main">🇺🇿 O'zbekiston</td><td>UZB</td><td>8</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>2</td><td class="td-main">🇷🇺 Rossiya</td><td>RUS</td><td>5</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>3</td><td class="td-main">🇳🇴 Norvegiya</td><td>NOR</td><td>3</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>4</td><td class="td-main">🇺🇸 Amerika</td><td>USA</td><td>4</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>5</td><td class="td-main">🇨🇳 Xitoy</td><td>CHN</td><td>6</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ COURSES ══ -->
+    <div class="page" id="page-courses">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <div class="tabs" style="margin:0;border:none">
+          <div class="tab active" onclick="switchTab(this)">Barchasi</div>
+          <div class="tab" onclick="switchTab(this)">Chop etilgan</div>
+          <div class="tab" onclick="switchTab(this)">Qoralama</div>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('course-modal')">+ Yangi Kurs</button>
+      </div>
+      <div class="grid3" id="courses-grid"></div>
+    </div>
+
+    <!-- ══ COURSE CATEGORIES ══ -->
+    <div class="page" id="page-course-categories">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+        <button class="btn btn-primary">+ Yangi Kategoriya</button>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">📁 Kurs Kategoriyalari</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Nomi</th><th>Kurslar</th><th>Holat</th><th>Amallar</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="td-main">Boshlang'ich</td><td>12</td><td><span class="status status-active">Faol</span></td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>2</td><td class="td-main">O'rta daraja</td><td>8</td><td><span class="status status-active">Faol</span></td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>3</td><td class="td-main">Ilg'or</td><td>6</td><td><span class="status status-active">Faol</span></td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>4</td><td class="td-main">Professional</td><td>10</td><td><span class="status status-pending">Kutilmoqda</span></td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PURCHASED ══ -->
+    <div class="page" id="page-purchased">
+      <div class="card">
+        <div class="card-header"><div class="card-title">🛒 Xarid qilingan Kurslar</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Foydalanuvchi</th><th>Kurs</th><th>Narx</th><th>Sana</th><th>Holat</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="td-main">Alisher Nazarov</td><td>Boshlang'ich shaxmat</td><td style="color:var(--accent);font-weight:700">50,000 so'm</td><td style="color:var(--text2)">2025-03-28</td><td><span class="status status-active">To'langan</span></td></tr>
+              <tr><td>2</td><td class="td-main">Malika Yusupova</td><td>Ilg'or strategiya</td><td style="color:var(--accent);font-weight:700">120,000 so'm</td><td style="color:var(--text2)">2025-03-27</td><td><span class="status status-active">To'langan</span></td></tr>
+              <tr><td>3</td><td class="td-main">Bobur Rahimov</td><td>O'rta daraja</td><td style="color:var(--accent);font-weight:700">80,000 so'm</td><td style="color:var(--text2)">2025-03-25</td><td><span class="status status-pending">Kutilmoqda</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ BOOKS ══ -->
+    <div class="page" id="page-books">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <div></div>
+        <button class="btn btn-primary" onclick="openModal('book-modal')">+ Yangi Kitob</button>
+      </div>
+      <div class="grid3" id="books-grid"></div>
+    </div>
+
+    <!-- ══ BOOK CATEGORIES ══ -->
+    <div class="page" id="page-book-categories">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+        <button class="btn btn-primary">+ Yangi Kategoriya</button>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">🏷️ Kitob Kategoriyalari</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Nomi</th><th>Kitoblar</th><th>Amallar</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="td-main">Ochiqlik</td><td>18</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>2</td><td class="td-main">Middlegame</td><td>24</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>3</td><td class="td-main">Endshpil</td><td>15</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>4</td><td class="td-main">Kombinatsiya</td><td>20</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ NEWS ══ -->
+    <div class="page" id="page-news">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+        <button class="btn btn-primary" onclick="openModal('news-modal')">+ Yangi Yangilik</button>
+      </div>
+      <div class="grid3" id="news-grid"></div>
+    </div>
+
+    <!-- ══ USERS ══ -->
+    <div class="page" id="page-users">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+        <div class="tabs" style="margin:0;border:none">
+          <div class="tab active" onclick="switchTab(this)">Barchasi</div>
+          <div class="tab" onclick="switchTab(this)">Admin</div>
+          <div class="tab" onclick="switchTab(this)">Foydalanuvchi</div>
+        </div>
+        <button class="btn btn-primary" onclick="openModal('user-modal')">+ Yangi Foydalanuvchi</button>
+      </div>
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">👥 Foydalanuvchilar</div>
+          <input type="text" class="form-control" style="width:180px;padding:6px 10px;font-size:12px" placeholder="Qidirish...">
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Foydalanuvchi</th><th>Login</th><th>Turi</th><th>Ro'l</th><th>Holat</th><th>Amallar</th></tr></thead>
+            <tbody id="users-tbody"></tbody>
+          </table>
+        </div>
+        <div class="pagination" style="padding:16px">
+          <div class="page-btn">‹</div>
+          <div class="page-btn active">1</div>
+          <div class="page-btn">2</div>
+          <div class="page-btn">›</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ REPORTS ══ -->
+    <div class="page" id="page-reports">
+      <div class="card">
+        <div class="card-header"><div class="card-title">🚩 Shikoyatlar</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Foydalanuvchi</th><th>Kategoriya</th><th>Sabab</th><th>Sana</th><th>Holat</th><th>Amallar</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>1</td><td class="td-main">user123</td>
+                <td>Spam</td><td style="color:var(--text2);max-width:200px">Keraksiz xabarlar yubormoqda</td>
+                <td style="color:var(--text2)">2025-04-01</td>
+                <td><span class="status status-pending">Ko'rib chiqilmoqda</span></td>
+                <td><button class="btn btn-success btn-sm">✓</button></td>
+              </tr>
+              <tr>
+                <td>2</td><td class="td-main">chess_fan</td>
+                <td>Noto'g'ri ma'lumot</td><td style="color:var(--text2);max-width:200px">Yolg'on reyting ko'rsatmoqda</td>
+                <td style="color:var(--text2)">2025-03-29</td>
+                <td><span class="status status-active">Hal qilindi</span></td>
+                <td><button class="btn btn-secondary btn-sm">👁</button></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ LANGUAGES ══ -->
+    <div class="page" id="page-languages">
+      <div style="display:flex;justify-content:flex-end;margin-bottom:20px">
+        <button class="btn btn-primary">+ Yangi Til</button>
+      </div>
+      <div class="card">
+        <div class="card-header"><div class="card-title">🌐 Tillar</div></div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>#</th><th>Til</th><th>Kod</th><th>Kurslar</th><th>Kitoblar</th><th>Amallar</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td class="td-main">🇺🇿 O'zbekcha</td><td>uz</td><td>18</td><td>45</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>2</td><td class="td-main">🇷🇺 Ruscha</td><td>ru</td><td>12</td><td>38</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+              <tr><td>3</td><td class="td-main">🇬🇧 Inglizcha</td><td>en</td><td>6</td><td>22</td><td><button class="btn btn-secondary btn-sm">✏️</button></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ TERMS ══ -->
+    <div class="page" id="page-terms">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title">📋 Foydalanish Shartlari</div>
+          <button class="btn btn-primary btn-sm" onclick="showToast('Saqlandi!','success')">💾 Saqlash</button>
+        </div>
+        <div class="card-body">
+          <div class="form-group">
+            <div class="form-label">Matn</div>
+            <textarea class="form-control" rows="12" style="resize:vertical">UzChess platformasidan foydalanish shartlari...
+
+1. Umumiy qoidalar
+Ushbu qoidalar barcha foydalanuvchilarga tegishli...
+
+2. Hisob va xavfsizlik
+Foydalanuvchi o'z hisobining xavfsizligi uchun javobgar...
+
+3. Kontent qoidalari
+Platformada noqonuniy, haqoratli yoki zararli kontent joylashtirish taqiqlanadi...</textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══ PROFILE ══ -->
+    <div class="page" id="page-profile">
+      <div class="profile-hero">
+        <div class="profile-avatar-big">A</div>
+        <div class="profile-details">
+          <h2>Admin User</h2>
+          <p>admin@uzchess.uz • Super Admin</p>
+          <div class="profile-stats">
+            <div class="profile-stat">
+              <div class="profile-stat-num">1,248</div>
+              <div class="profile-stat-lbl">Foydalanuvchilar</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-num">36</div>
+              <div class="profile-stat-lbl">Kurslar</div>
+            </div>
+            <div class="profile-stat">
+              <div class="profile-stat-num">142</div>
+              <div class="profile-stat-lbl">Kitoblar</div>
+            </div>
+          </div>
+        </div>
+        <button class="btn btn-secondary" style="margin-left:auto;align-self:flex-start">✏️ Tahrirlash</button>
+      </div>
+      <div class="grid2">
+        <div class="card">
+          <div class="card-header"><div class="card-title">👤 Shaxsiy Ma'lumotlar</div></div>
+          <div class="card-body">
+            <div class="form-group"><div class="form-label">To'liq ism</div><input class="form-control" value="Admin User"></div>
+            <div class="form-group"><div class="form-label">Login (email/telefon)</div><input class="form-control" value="admin@uzchess.uz"></div>
+            <div class="form-group"><div class="form-label">Tug'ilgan kun</div><input class="form-control" type="date" value="1990-01-01"></div>
+            <button class="btn btn-primary" onclick="showToast('Saqlandi!','success')">💾 Saqlash</button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-header"><div class="card-title">🔐 Parolni O'zgartirish</div></div>
+          <div class="card-body">
+            <div class="form-group"><div class="form-label">Joriy parol</div><input class="form-control" type="password" placeholder="••••••••"></div>
+            <div class="form-group"><div class="form-label">Yangi parol</div><input class="form-control" type="password" placeholder="••••••••"></div>
+            <div class="form-group"><div class="form-label">Tasdiqlash</div><input class="form-control" type="password" placeholder="••••••••"></div>
+            <button class="btn btn-primary" onclick="showToast('Parol yangilandi!','success')">🔒 Saqlash</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</div><!-- /main -->
+</div><!-- /layout -->
+
+<!-- ═══════════════════ MODALS ═══════════════════ -->
+
+<!-- Player modal -->
+<div class="modal-overlay" id="player-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">♟ Yangi O'yinchi</div>
+      <button class="modal-close" onclick="closeModal('player-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><div class="form-label">To'liq ism</div><input class="form-control" placeholder="Ism Familiya"></div>
+      <div class="form-group"><div class="form-label">Mamlakat</div>
+        <select class="form-control"><option>O'zbekiston</option><option>Rossiya</option><option>Norvegiya</option><option>Amerika</option></select>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Klassik reytingi</div><input class="form-control" type="number" placeholder="2500"></div>
+        <div class="form-group"><div class="form-label">Rapid reytingi</div><input class="form-control" type="number" placeholder="2500"></div>
+      </div>
+      <div class="form-group"><div class="form-label">Blitz reytingi</div><input class="form-control" type="number" placeholder="2500"></div>
+      <div class="form-group"><div class="form-label">Rasm URL</div><input class="form-control" placeholder="/uploads/player.jpg"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('player-modal')">Bekor qilish</button>
+      <button class="btn btn-primary" onclick="saveAndClose('player-modal')">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- Match modal -->
+<div class="modal-overlay" id="match-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">⚔️ Yangi O'yin</div>
+      <button class="modal-close" onclick="closeModal('match-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">1-o'yinchi</div>
+          <select class="form-control"><option>N. Abdusattorov</option><option>J. Sindarov</option><option>Sh. Vokhidov</option></select>
+        </div>
+        <div class="form-group"><div class="form-label">2-o'yinchi</div>
+          <select class="form-control"><option>M. Carlsen</option><option>F. Caruana</option><option>D. Nepomniachtchi</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">1-o'yinchi natija</div><input class="form-control" type="number" step="0.5" placeholder="1"></div>
+        <div class="form-group"><div class="form-label">2-o'yinchi natija</div><input class="form-control" type="number" step="0.5" placeholder="0"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Tur</div>
+          <select class="form-control"><option value="classic">Klassik</option><option value="rapid">Rapid</option><option value="blitz">Blitz</option></select>
+        </div>
+        <div class="form-group"><div class="form-label">Hamlalar soni</div><input class="form-control" type="number" placeholder="42"></div>
+      </div>
+      <div class="form-group"><div class="form-label">O'yin sanasi</div><input class="form-control" type="date"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('match-modal')">Bekor qilish</button>
+      <button class="btn btn-primary" onclick="saveAndClose('match-modal')">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- Country modal -->
+<div class="modal-overlay" id="country-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">🌍 Yangi Mamlakat</div>
+      <button class="modal-close" onclick="closeModal('country-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><div class="form-label">Mamlakat nomi</div><input class="form-control" placeholder="Masalan: O'zbekiston"></div>
+      <div class="form-group"><div class="form-label">Kod (3 harf)</div><input class="form-control" placeholder="UZB" maxlength="3" style="text-transform:uppercase"></div>
+      <div class="form-group"><div class="form-label">Bayroq emoji</div><input class="form-control" placeholder="🇺🇿"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('country-modal')">Bekor qilish</button>
+      <button class="btn btn-primary" onclick="saveAndClose('country-modal')">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- Course modal -->
+<div class="modal-overlay" id="course-modal">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <div class="modal-title">🎓 Yangi Kurs</div>
+      <button class="modal-close" onclick="closeModal('course-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><div class="form-label">Kurs nomi</div><input class="form-control" placeholder="Masalan: Boshlang'ich shaxmat"></div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Kategoriya</div>
+          <select class="form-control"><option>Boshlang'ich</option><option>O'rta daraja</option><option>Ilg'or</option></select>
+        </div>
+        <div class="form-group"><div class="form-label">Muallif</div>
+          <select class="form-control"><option>A. Karimov</option><option>B. Yusupov</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Narx (so'm)</div><input class="form-control" type="number" placeholder="50000"></div>
+        <div class="form-group"><div class="form-label">Chegirmali narx</div><input class="form-control" type="number" placeholder="35000"></div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Til</div>
+          <select class="form-control"><option>O'zbekcha</option><option>Ruscha</option><option>Inglizcha</option></select>
+        </div>
+        <div class="form-group"><div class="form-label">Qiyinlik darajasi</div>
+          <select class="form-control"><option>Oson</option><option>O'rta</option><option>Qiyin</option></select>
+        </div>
+      </div>
+      <div class="form-group"><div class="form-label">Rasm URL</div><input class="form-control" placeholder="/uploads/course.jpg"></div>
+      <div class="form-group" style="display:flex;align-items:center;gap:10px">
+        <input type="checkbox" id="published" style="width:16px;height:16px;accent-color:var(--blue)">
+        <label for="published" style="font-size:13px;cursor:pointer">Chop etish</label>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('course-modal')">Bekor qilish</button>
+      <button class="btn btn-primary" onclick="saveAndClose('course-modal')">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- Book modal -->
+<div class="modal-overlay" id="book-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">📚 Yangi Kitob</div>
+      <button class="modal-close" onclick="closeModal('book-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><div class="form-label">Kitob nomi</div><input class="form-control" placeholder="Kitob nomi"></div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Muallif</div>
+          <select class="form-control"><option>A. Karimov</option><option>B. Yusupov</option><option>G. Kasparov</option></select>
+        </div>
+        <div class="form-group"><div class="form-label">Kategoriya</div>
+          <select class="form-control"><option>Ochiqlik</option><option>Middlegame</option><option>Endshpil</option></select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group"><div class="form-label">Til</div>
+          <select class="form-control"><option>O'zbekcha</option><option>Ruscha</option><option>Inglizcha</option></select>
+        </div>
+        <div class="form-group"><div class="form-label">Narx (so'm)</div><input class="form-control" type="number" placeholder="25000"></div>
+      </div>
+      <div class="form-group"><div class="form-label">Muqova rasmi</div><input class="form-control" placeholder="/uploads/book.jpg"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('book-modal')">Bekor qilish</button>
+      <button class="btn btn-primary" onclick="saveAndClose('book-modal')">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- News modal -->
+<div class="modal-overlay" id="news-modal">
+  <div class="modal" style="max-width:560px">
+    <div class="modal-header">
+      <div class="modal-title">📰 Yangi Yangilik</div>
+      <button class="modal-close" onclick="closeModal('news-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><div class="form-label">Sarlavha</div><input class="form-control" placeholder="Yangilik sarlavhasi"></div>
+      <div class="form-group"><div class="form-label">Rasm URL</div><input class="form-control" placeholder="/uploads/news.jpg"></div>
+      <div class="form-group"><div class="form-label">Kontent</div>
+        <textarea class="form-control" rows="6" placeholder="Yangilik matni..."></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('news-modal')">Bekor qilish</button>
+      <button class="btn btn-primary" onclick="saveAndClose('news-modal')">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- User modal -->
+<div class="modal-overlay" id="user-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title">👤 Yangi Foydalanuvchi</div>
+      <button class="modal-close" onclick="closeModal('user-modal')">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group"><div class="form-label">To'liq ism</div><input class="form-control" placeholder="Ism Familiya"></div>
+      <div class="form-group"><div class="form-label">Login (email yoki telefon)</div><input class="form-control" placeholder="user@example.com"></div>
+      <div class="form-group"><div class="form-label">Login turi</div>
+        <select class="form-control"><option value="email">Email</option><option value="number">Telefon</option></select>
+      </div>
+      <div class="form-group"><div class="form-label">Rol</div>
+        <select class="form-control"><option value="user">Foydalanuvchi</option><option value="admin">Admin</option><option value="superAdmin">Super Admin</option></select>
+      </div>
+      <div class="form-group"><div class="form-label">Parol</div><input class="form-control" type="password" placeholder="••••••••"></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-secondary" onclick="closeModal('user-modal')">Bekor qilish</button>
+      <button class="btn btn-primary" onclick="saveAndClose('user-modal')">Saqlash</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast container -->
+<div class="toast-wrap" id="toast-wrap"></div>
+
+<script>
+// ─── DATA ───────────────────────────────────────────
+const players = [
+  {id:1, name:'Nodirbek Abdusattorov', country:'🇺🇿 O\'zbekiston', classic:2757, rapid:2787, blitz:2811},
+  {id:2, name:'Javokhir Sindarov', country:'🇺🇿 O\'zbekiston', classic:2685, rapid:2700, blitz:2720},
+  {id:3, name:'Shamsiddin Vokhidov', country:'🇺🇿 O\'zbekiston', classic:2648, rapid:2660, blitz:2695},
+  {id:4, name:'Magnus Carlsen', country:'🇳🇴 Norvegiya', classic:2830, rapid:2834, blitz:2886},
+  {id:5, name:'Fabiano Caruana', country:'🇺🇸 Amerika', classic:2805, rapid:2788, blitz:2762},
+  {id:6, name:'Ding Liren', country:'🇨🇳 Xitoy', classic:2762, rapid:2773, blitz:2739},
+];
+
+const courses = [
+  {id:1, title:'Boshlang\'ich shaxmat kursi', emoji:'♟', cat:'Boshlang\'ich', price:'50,000', newPrice:'35,000', rating:4.8, reviews:124, lessons:24, sections:6},
+  {id:2, title:'Ochiqlik strategiyasi', emoji:'♞', cat:'O\'rta daraja', price:'80,000', newPrice:null, rating:4.6, reviews:89, lessons:18, sections:4},
+  {id:3, title:'Endshpil texnikasi', emoji:'♚', cat:'Ilg\'or', price:'120,000', newPrice:'95,000', rating:4.9, reviews:56, lessons:30, sections:8},
+  {id:4, title:'Taktika va kombinatsiya', emoji:'♛', cat:'O\'rta daraja', price:'70,000', newPrice:null, rating:4.7, reviews:102, lessons:20, sections:5},
+  {id:5, title:'Grand master sirlari', emoji:'♜', cat:'Professional', price:'200,000', newPrice:'150,000', rating:4.9, reviews:34, lessons:40, sections:10},
+  {id:6, title:'Blitz va Rapid trening', emoji:'⚡', cat:'Boshlang\'ich', price:'45,000', newPrice:null, rating:4.5, reviews:78, lessons:16, sections:4},
+];
+
+const books = [
+  {id:1, title:'Shaxmat asoslari', emoji:'📖', author:'G. Kasparov', lang:'O\'zbek', likes:245, cat:'Boshlang\'ich'},
+  {id:2, title:'Endshpil sirlari', emoji:'📗', author:'A. Karpov', lang:'Rus', likes:189, cat:'Endshpil'},
+  {id:3, title:'My System', emoji:'📘', author:'A. Nimzowitsch', lang:'Ingliz', likes:312, cat:'Middlegame'},
+  {id:4, title:'Kombinatsiya san\'ati', emoji:'📙', author:'M. Tal', lang:'O\'zbek', likes:156, cat:'Kombinatsiya'},
+  {id:5, title:'O\'rtadagi o\'yin', emoji:'📕', author:'B. Yusupov', lang:'O\'zbek', likes:98, cat:'Middlegame'},
+  {id:6, title:'Sicilian mudofaasi', emoji:'📒', author:'J. Polgar', lang:'Ingliz', likes:201, cat:'Ochiqlik'},
+];
+
+const newsData = [
+  {id:1, title:'O\'zbekiston jamoasi Olimpiada finalida!', emoji:'🏆', date:'2 soat oldin', views:1240, excerpt:'O\'zbek shaxmatchilar tarixiy g\'alabani qo\'lga kiritdi. Finalda Hindiston jamoasiga qarshi o\'ynaladi.'},
+  {id:2, title:'Abdusattorov Rapid chempion bo\'ldi', emoji:'🥇', date:'1 kun oldin', views:3580, excerpt:'Nodirbek Abdusattorov 2025 yil Jahon rapid chempionatida oltin medalga erishdi.'},
+  {id:3, title:'Yangi kurslar platformada mavjud', emoji:'📢', date:'3 kun oldin', views:892, excerpt:'UzChess platformasida endshpil va taktika bo\'yicha 5 ta yangi kurs qo\'shildi.'},
+  {id:4, title:'Sindarov FIDE reyting to\'plamida', emoji:'⭐', date:'5 kun oldin', views:2100, excerpt:'Javokhir Sindarov FIDE tomonidan yil yoshi o\'yinchisi sifatida tan olindi.'},
+  {id:5, title:'O\'zbekistonda shaxmat musobaqasi', emoji:'🏟️', date:'1 hafta oldin', views:756, excerpt:'Toshkentda milliy shaxmat chempionati boshlanadi. Jami 200 dan ortiq ishtirokchi.'},
+  {id:6, title:'Yangi kitoblar kutubxonada', emoji:'📚', date:'2 hafta oldin', views:543, excerpt:'Kasparov va Karpovning yangi kitobi O\'zbek tiliga tarjima qilindi.'},
+];
+
+const users = [
+  {id:1, name:'Alisher Nazarov', login:'alisher@mail.uz', type:'email', role:'user', active:true},
+  {id:2, name:'Malika Yusupova', login:'+998901234567', type:'number', role:'user', active:true},
+  {id:3, name:'Bobur Rahimov', login:'bobur@gmail.com', type:'email', role:'admin', active:true},
+  {id:4, name:'Zulfiya Karimova', login:'+998991234567', type:'number', role:'user', active:false},
+  {id:5, name:'Jasur Toshmatov', login:'jasur@mail.uz', type:'email', role:'user', active:true},
+];
+
+const matchesData = [
+  {id:1, p1:'N. Abdusattorov', p1c:'🇺🇿', p2:'M. Carlsen', p2c:'🇳🇴', s1:1, s2:0, type:'classic', moves:42, date:'2025-04-01', winner:'first'},
+  {id:2, p1:'J. Sindarov', p1c:'🇺🇿', p2:'F. Caruana', p2c:'🇺🇸', s1:0.5, s2:0.5, type:'blitz', moves:31, date:'2025-03-30', winner:'draw'},
+  {id:3, p1:'Sh. Vokhidov', p1c:'🇺🇿', p2:'D. Liren', p2c:'🇨🇳', s1:0, s2:1, type:'rapid', moves:56, date:'2025-03-28', winner:'second'},
+  {id:4, p1:'N. Abdusattorov', p1c:'🇺🇿', p2:'F. Caruana', p2c:'🇺🇸', s1:1, s2:0, type:'classic', moves:38, date:'2025-03-25', winner:'first'},
+];
+
+// ─── RENDER ─────────────────────────────────────────
+function renderPlayers() {
+  const tb = document.getElementById('players-tbody');
+  if(!tb) return;
+  tb.innerHTML = players.map((p,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td><div class="td-main">${p.name}</div></td>
+      <td style="color:var(--text2)">${p.country}</td>
+      <td style="font-family:var(--font-head);color:var(--blue-l);font-weight:700">${p.classic}</td>
+      <td style="color:var(--text2)">${p.rapid}</td>
+      <td style="color:var(--text2)">${p.blitz}</td>
+      <td>
+        <button class="btn btn-secondary btn-sm btn-icon" title="Tahrirlash" onclick="showToast('Tahrirlash...','info')">✏️</button>
+        <button class="btn btn-danger btn-sm btn-icon" title="O'chirish" onclick="showToast('O\'chirildi!','error')" style="margin-left:4px">🗑</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function renderCourses() {
+  const g = document.getElementById('courses-grid');
+  if(!g) return;
+  g.innerHTML = courses.map(c => `
+    <div class="course-card">
+      <div class="course-thumb">
+        ${c.emoji}
+        <div class="course-badge">${c.cat}</div>
+      </div>
+      <div class="course-body">
+        <div class="course-title">${c.title}</div>
+        <div class="course-meta">
+          <div class="course-meta-item">📖 ${c.lessons} dars</div>
+          <div class="course-meta-item">📂 ${c.sections} bo'lim</div>
+          <div class="course-meta-item">⭐ ${c.rating}</div>
+        </div>
+        <div class="course-footer">
+          <div>
+            <span class="course-price">${c.price} so'm</span>
+            ${c.newPrice ? `<span class="course-price-old">${c.price}</span>` : ''}
+          </div>
+          <div style="display:flex;gap:4px">
+            <button class="btn btn-secondary btn-sm btn-icon" onclick="showToast('Tahrirlash...','info')">✏️</button>
+            <button class="btn btn-danger btn-sm btn-icon" onclick="showToast('O\'chirildi!','error')">🗑</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderBooks() {
+  const g = document.getElementById('books-grid');
+  if(!g) return;
+  const colors = ['#1e3a5f','#1a3520','#3a1e1e','#2a1e3a','#1e3a2a','#3a2a1e'];
+  g.innerHTML = books.map((b,i) => `
+    <div class="book-card">
+      <div class="book-cover" style="background:${colors[i%colors.length]}">${b.emoji}</div>
+      <div class="book-body">
+        <div class="book-title">${b.title}</div>
+        <div class="book-author">✍️ ${b.author}</div>
+        <div class="book-footer">
+          <span class="book-lang">${b.lang}</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="book-likes">❤️ ${b.likes}</span>
+            <button class="btn btn-secondary btn-sm btn-icon" onclick="showToast('Tahrirlash...','info')">✏️</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderNews() {
+  const g = document.getElementById('news-grid');
+  if(!g) return;
+  const thumbColors = ['#1e3a5f','#1a3520','#3a1e1e','#2a1e3a','#1e3a2a','#3a2a1e'];
+  g.innerHTML = newsData.map((n,i) => `
+    <div class="news-card">
+      <div class="news-thumb" style="background:linear-gradient(135deg,${thumbColors[i%thumbColors.length]},#0d0f14)">${n.emoji}</div>
+      <div class="news-body">
+        <div class="news-title">${n.title}</div>
+        <div class="news-excerpt">${n.excerpt}</div>
+        <div class="news-footer">
+          <span class="news-date">🕒 ${n.date}</span>
+          <div style="display:flex;align-items:center;gap:6px">
+            <span class="news-views">👁 ${n.views}</span>
+            <button class="btn btn-secondary btn-sm btn-icon" onclick="showToast('Tahrirlash...','info')">✏️</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderMatches() {
+  const l = document.getElementById('matches-list');
+  if(!l) return;
+  l.innerHTML = matchesData.map(m => {
+    const typeClass = {classic:'match-classic',rapid:'match-rapid',blitz:'match-blitz'}[m.type];
+    const typeName = {classic:'Klassik',rapid:'Rapid',blitz:'Blitz'}[m.type];
+    const s1class = m.winner==='first'?'score-w':m.winner==='draw'?'score-d':'score-l';
+    const s2class = m.winner==='second'?'score-w':m.winner==='draw'?'score-d':'score-l';
+    return `
+    <div class="match-card">
+      <div class="match-header">
+        <span class="match-type ${typeClass}">${typeName}</span>
+        <div style="display:flex;align-items:center;gap:10px">
+          <span style="font-size:11px;color:var(--text3)">${m.date} • ${m.moves} hamla</span>
+          <button class="btn btn-danger btn-sm btn-icon" onclick="showToast('O\'chirildi!','error')">🗑</button>
+        </div>
+      </div>
+      <div class="match-players">
+        <div class="match-player">
+          <div class="match-player-name">${m.p1}</div>
+          <div class="match-player-country">${m.p1c}</div>
+        </div>
+        <div class="match-score">
+          <span class="${s1class}">${m.s1}</span><span class="vs">:</span><span class="${s2class}">${m.s2}</span>
+        </div>
+        <div class="match-player">
+          <div class="match-player-name">${m.p2}</div>
+          <div class="match-player-country">${m.p2c}</div>
+        </div>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function renderUsers() {
+  const tb = document.getElementById('users-tbody');
+  if(!tb) return;
+  const roleLabel = {user:'Foydalanuvchi',admin:'Admin',superAdmin:'Super Admin'};
+  const roleColor = {user:'var(--text2)',admin:'var(--blue-l)',superAdmin:'var(--accent)'};
+  tb.innerHTML = users.map((u,i) => `
+    <tr>
+      <td>${i+1}</td>
+      <td><div class="td-main">${u.name}</div></td>
+      <td style="color:var(--text2);font-size:12px">${u.login}</td>
+      <td><span class="status ${u.type==='email'?'status-pending':'status-active'}">${u.type==='email'?'Email':'Telefon'}</span></td>
+      <td style="color:${roleColor[u.role]};font-weight:700;font-size:12px">${roleLabel[u.role]}</td>
+      <td><span class="status ${u.active?'status-active':'status-inactive'}">${u.active?'Faol':'Nofaol'}</span></td>
+      <td>
+        <button class="btn btn-secondary btn-sm btn-icon" onclick="showToast('Tahrirlash...','info')">✏️</button>
+        <button class="btn btn-danger btn-sm btn-icon" onclick="showToast('O\'chirildi!','error')" style="margin-left:4px">🗑</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+// ─── NAVIGATION ─────────────────────────────────────
+const pageTitles = {
+  dashboard:'Dashboard', players:'O\'yinchilar', matches:'O\'yinlar', countries:'Mamlakatlar',
+  courses:'Kurslar', 'course-categories':'Kurs Kategoriyalari', purchased:'Xarid qilingan Kurslar',
+  books:'Kitoblar', 'book-categories':'Kitob Kategoriyalari',
+  news:'Yangiliklar', users:'Foydalanuvchilar', reports:'Shikoyatlar',
+  languages:'Tillar', terms:'Shartlar', profile:'Profil'
+};
+
+function navigate(page) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if(target) target.classList.add('active');
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if(n.getAttribute('onclick') && n.getAttribute('onclick').includes(`'${page}'`)) n.classList.add('active');
+  });
+  document.getElementById('page-title').textContent = pageTitles[page] || page;
+  // Render on navigate
+  if(page==='players') renderPlayers();
+  if(page==='courses') renderCourses();
+  if(page==='books') renderBooks();
+  if(page==='news') renderNews();
+  if(page==='matches') renderMatches();
+  if(page==='users') renderUsers();
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ─── MODALS ─────────────────────────────────────────
+function openModal(id) {
+  document.getElementById(id).classList.add('open');
+}
+function closeModal(id) {
+  document.getElementById(id).classList.remove('open');
+}
+function saveAndClose(id) {
+  closeModal(id);
+  showToast('Muvaffaqiyatli saqlandi!', 'success');
+}
+document.querySelectorAll('.modal-overlay').forEach(m => {
+  m.addEventListener('click', e => { if(e.target === m) m.classList.remove('open'); });
+});
+
+// ─── TABS ────────────────────────────────────────────
+function switchTab(el) {
+  const tabs = el.closest('.tabs');
+  tabs.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+}
+
+// ─── TOAST ──────────────────────────────────────────
+function showToast(msg, type='info') {
+  const wrap = document.getElementById('toast-wrap');
+  const t = document.createElement('div');
+  t.className = `toast toast-${type}`;
+  const icons = {success:'✅', error:'❌', info:'ℹ️'};
+  t.innerHTML = `<span style="font-size:16px">${icons[type]||'ℹ️'}</span><span style="font-size:13px;font-weight:600">${msg}</span>`;
+  wrap.appendChild(t);
+  setTimeout(() => { t.style.opacity='0'; t.style.transform='translateX(20px)'; t.style.transition='.3s'; setTimeout(()=>t.remove(),300); }, 2500);
+}
+
+// ─── INIT ────────────────────────────────────────────
+renderPlayers();
+renderCourses();
+renderBooks();
+renderNews();
+renderMatches();
+renderUsers();
+
+// Add hover effect to news rows
+document.querySelectorAll('.news-row').forEach(r => {
+  r.addEventListener('mouseenter', () => r.style.background='rgba(255,255,255,.03)');
+  r.addEventListener('mouseleave', () => r.style.background='');
+});
+</script>
+</body>
+</html>

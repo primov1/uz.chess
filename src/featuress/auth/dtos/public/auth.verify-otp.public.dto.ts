@@ -1,4 +1,4 @@
-import { IsString, IsEnum, MaxLength, Length } from 'class-validator';
+import { IsEnum, IsString, Length, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 import { OtpType } from '../../../common/otpCodes/entities/otpCode.entity';
 

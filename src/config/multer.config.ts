@@ -15,7 +15,6 @@ function getFileType(mime: string): string {
   }
 }
 
-
 export const storageOptions = diskStorage({
   destination: (req, file, cb) => {
     let subFolder: string = getFileType(file.mimetype);

@@ -1,12 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import {
-  IsBoolean,
   IsNumber,
   IsOptional,
   IsString,
   MaxLength,
   Min,
 } from 'class-validator';
+
 export class CourseCreateAdminDto {
   @IsNumber()
   @ApiProperty()
@@ -27,7 +27,7 @@ export class CourseCreateAdminDto {
   @IsString()
   @MaxLength(128)
   @IsOptional()
-  @ApiPropertyOptional({ description: "Set automatically if file uploaded" })
+  @ApiPropertyOptional({ description: 'Set automatically if file uploaded' })
   image?: string;
   @IsNumber()
   @Min(0)

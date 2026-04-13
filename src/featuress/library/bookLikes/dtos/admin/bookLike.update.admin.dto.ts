@@ -1,9 +1,5 @@
 import { ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { IsNumber, IsOptional } from 'class-validator';
 
 export class BookLikeUpdateAdminDto {
   @IsNumber()
@@ -15,5 +11,4 @@ export class BookLikeUpdateAdminDto {
   @IsOptional()
   @ApiPropertyOptional()
   bookId?: number;
-
 }

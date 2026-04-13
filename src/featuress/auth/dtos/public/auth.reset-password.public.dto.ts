@@ -1,4 +1,4 @@
-import { IsString, MaxLength, Length } from 'class-validator';
+import { IsString, Length, MaxLength } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
 
 export class AuthResetPasswordPublicDto {

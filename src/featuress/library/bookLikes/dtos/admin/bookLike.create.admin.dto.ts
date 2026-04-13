@@ -1,9 +1,5 @@
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsNumber,
-  IsOptional,
-  IsString,
-} from 'class-validator';
+import { ApiProperty } from '@nestjs/swagger';
+import { IsNumber } from 'class-validator';
 
 export class BookLikeCreateAdminDto {
   @IsNumber()
@@ -13,5 +9,4 @@ export class BookLikeCreateAdminDto {
   @IsNumber()
   @ApiProperty()
   bookId!: number;
-
 }

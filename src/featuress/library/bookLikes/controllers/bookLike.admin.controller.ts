@@ -52,16 +52,16 @@ export class BookLikeAdminController {
     return this.service.create(payload);
   }
 
-  @Patch(':id')
-  @ApiOperation({ summary: 'Update book like' })
-  @ApiOkResponse({ type: () => BookLikeDetailAdminDto })
-  update(@Param('id') id: number, @Body() payload: BookLikeUpdateAdminDto) {
-    return this.service.update(id, payload);
-  }
+  // @Patch(':id')
+  // @ApiOperation({ summary: 'Update book like' })
+  // @ApiOkResponse({ type: () => BookLikeDetailAdminDto })
+  // update(@Param('id') id: number, @Body() payload: BookLikeUpdateAdminDto) {
+  //   return this.service.update(id, payload);
+  // }
 
-  @Delete(':id')
-  @ApiOperation({ summary: 'Delete book like' })
-  delete(@Param('id') id: number) {
-    return this.service.delete(id);
-  }
+  // @Delete(':id')
+  // @ApiOperation({ summary: 'Delete book like' })
+  // delete(@Param('id') id: number) {
+  //   return this.service.delete(id);
+  // }
 }

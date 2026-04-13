@@ -13,10 +13,10 @@ export class RolesGuard implements CanActivate {
   constructor(private readonly reflector: Reflector) {}
 
   canActivate(context: ExecutionContext): boolean {
-    const requiredRoles = this.reflector.getAllAndOverride<UserRole[]>(ROLES_KEY, [
-      context.getHandler(),
-      context.getClass(),
-    ]);
+    const requiredRoles = this.reflector.getAllAndOverride<UserRole[]>(
+      ROLES_KEY,
+      [context.getHandler(), context.getClass()],
+    );
 
     // @Roles() decorator qo'yilmagan bo'lsa — ruxsat beriladi
     if (!requiredRoles || requiredRoles.length === 0) return true;
@@ -25,7 +25,7 @@ export class RolesGuard implements CanActivate {
     const user = request.user;
 
     if (!user || !requiredRoles.includes(user.role)) {
-      throw new ForbiddenException('Bu amalni bajarish uchun ruxsat yo\'q');
+      throw new ForbiddenException("Bu amalni bajarish uchun ruxsat yo'q");
     }
 
     return true;

@@ -12,7 +12,7 @@ export enum LoginType {
 }
 
 @Entity('users')
-export class User extends BaseModel {
+export class  User extends BaseModel {
   @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
   role!: UserRole;
   @Column({ length: 64 })

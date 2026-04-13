@@ -4,10 +4,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
 import { join } from 'path';
 import { AppModule } from './app.module';
+import { GlobalFilter } from '@/core/filters/global.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
-
+  app.useGlobalFilters(new GlobalFilter());
   // Uploads papkasini statik serve qilish
   app.useStaticAssets(join(__dirname, '..', 'uploads'), {
     prefix: '/uploads',
@@ -26,8 +27,8 @@ async function bootstrap() {
     .setTitle('Uzchess APIs')
     .setVersion('1.0.0')
     .setDescription(
-      'Uzchess loyihasi uchun REST API. '
-      + 'Himoyalangan endpointlar uchun "Authorize" tugmasini bosib Bearer token kiriting.',
+      'Uzchess loyihasi uchun REST API. ' +
+        'Himoyalangan endpointlar uchun "Authorize" tugmasini bosib Bearer token kiriting.',
     )
     .addBearerAuth(
       {
@@ -50,6 +51,8 @@ async function bootstrap() {
 
   await app.listen(process.env.PORT ?? 3000);
   console.log(`\n🚀 Server: http://localhost:${process.env.PORT ?? 3000}`);
-  console.log(`📄 Swagger: http://localhost:${process.env.PORT ?? 3000}/docs\n`);
+  console.log(
+    `📄 Swagger: http://localhost:${process.env.PORT ?? 3000}/docs\n`,
+  );
 }
 bootstrap();

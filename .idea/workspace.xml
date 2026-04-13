@@ -4,7 +4,142 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e03f1bb6-a2c6-40eb-bdd3-321144a183d2" name="Changes" comment="" />
+    <list default="true" id="e03f1bb6-a2c6-40eb-bdd3-321144a183d2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.env_example" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/data-source.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/core/filters/global.filter.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" afterPath="$PROJECT_DIR$/.env" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node_modules/@nestjs/swagger/dist/decorators/api-response.decorator.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/node_modules/@nestjs/swagger/dist/decorators/api-response.decorator.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/multer.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/multer.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/config/typyeorm.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/config/typyeorm.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/base-model.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/base-model.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/auth/auth.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/auth/auth.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/auth/dtos/public/auth.register.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/auth/dtos/public/auth.register.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/auth/dtos/public/auth.reset-password.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/auth/dtos/public/auth.reset-password.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/auth/dtos/public/auth.verify-otp.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/auth/dtos/public/auth.verify-otp.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/auth/guards/roles.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/auth/guards/roles.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/auth/interfaces/jwt-payload.interface.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/auth/interfaces/jwt-payload.interface.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/auth/services/auth.public.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/auth/services/auth.public.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/chess/countries/dtos/admin/country.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/chess/countries/dtos/admin/country.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/chess/countries/dtos/admin/country.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/chess/countries/dtos/admin/country.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/chess/matches/entities/match.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/chess/matches/entities/match.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/chess/matches/service/match.admin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/chess/matches/service/match.admin.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/chess/matches/service/match.public.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/chess/matches/service/match.public.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/chess/players/controllers/player.admin.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/chess/players/controllers/player.admin.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/chess/players/controllers/player.public.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/chess/players/controllers/player.public.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/chess/players/service/player.admin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/chess/players/service/player.admin.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/chess/players/service/player.public.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/chess/players/service/player.public.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/authors/dtos/admin/author.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/authors/dtos/admin/author.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/authors/dtos/admin/author.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/authors/dtos/admin/author.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/authors/dtos/admin/author.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/authors/dtos/admin/author.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/authors/dtos/public/author.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/authors/dtos/public/author.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/authors/dtos/public/author.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/authors/dtos/public/author.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/difficulties/service/difficulty.admin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/difficulties/service/difficulty.admin.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/languages/dtos/admin/language.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/languages/dtos/admin/language.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/languages/dtos/admin/language.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/languages/dtos/admin/language.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/languages/dtos/admin/language.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/languages/dtos/admin/language.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/languages/dtos/public/language.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/languages/dtos/public/language.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/languages/dtos/public/language.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/languages/dtos/public/language.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/admin/reportCategory.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/admin/reportCategory.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/admin/reportCategory.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/admin/reportCategory.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/admin/reportCategory.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/admin/reportCategory.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/admin/reportCategory.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/admin/reportCategory.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/public/reportCategory.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/public/reportCategory.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/public/reportCategory.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reportCategories/dtos/public/reportCategory.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reportCategories/entities/reportCategory.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reportCategories/entities/reportCategory.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reports/controllers/report.public.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reports/controllers/report.public.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reports/dtos/admin/report.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reports/dtos/admin/report.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reports/dtos/admin/report.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reports/dtos/admin/report.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reports/dtos/admin/report.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reports/dtos/admin/report.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reports/dtos/public/report.create.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reports/dtos/public/report.create.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reports/dtos/public/report.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reports/dtos/public/report.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reports/dtos/public/report.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reports/dtos/public/report.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reports/entities/report.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reports/entities/report.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/reports/service/report.public.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/reports/service/report.public.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/common/terms/controllers/terms.admin.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/common/terms/controllers/terms.admin.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseCategories/dtos/admin/courseCategory.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseCategories/dtos/admin/courseCategory.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseCategories/dtos/admin/courseCategory.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseCategories/dtos/admin/courseCategory.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseCategories/dtos/admin/courseCategory.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseCategories/dtos/admin/courseCategory.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseCategories/dtos/public/courseCategory.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseCategories/dtos/public/courseCategory.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseCategories/dtos/public/courseCategory.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseCategories/dtos/public/courseCategory.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/admin/courseLesson.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/admin/courseLesson.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/admin/courseLesson.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/admin/courseLesson.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/admin/courseLesson.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/admin/courseLesson.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/admin/courseLesson.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/admin/courseLesson.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/public/courseLesson.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/public/courseLesson.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/public/courseLesson.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLessons/dtos/public/courseLesson.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLessons/entities/courseLesson.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLessons/entities/courseLesson.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/admin/courseLike.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/admin/courseLike.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/admin/courseLike.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/admin/courseLike.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/admin/courseLike.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/admin/courseLike.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/admin/courseLike.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/admin/courseLike.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/public/courseLike.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/public/courseLike.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/public/courseLike.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLikes/dtos/public/courseLike.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLikes/entities/courseLike.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLikes/entities/courseLike.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseLikes/service/courseLike.public.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseLikes/service/courseLike.public.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/admin/courseReview.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/admin/courseReview.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/admin/courseReview.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/admin/courseReview.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/admin/courseReview.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/admin/courseReview.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/admin/courseReview.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/admin/courseReview.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/public/courseReview.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/public/courseReview.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/public/courseReview.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseReviews/dtos/public/courseReview.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseReviews/entities/courseReview.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseReviews/entities/courseReview.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseSections/dtos/admin/courseSection.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseSections/dtos/admin/courseSection.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseSections/dtos/admin/courseSection.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseSections/dtos/admin/courseSection.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseSections/dtos/public/courseSection.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseSections/dtos/public/courseSection.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseSections/dtos/public/courseSection.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseSections/dtos/public/courseSection.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courseSections/entities/courseSection.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courseSections/entities/courseSection.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/admin/course.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/admin/course.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/admin/course.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/admin/course.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/admin/course.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/admin/course.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/admin/course.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/admin/course.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/public/course.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/public/course.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/public/course.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courses/dtos/public/course.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courses/entities/course.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courses/entities/course.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courses/service/course.admin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courses/service/course.admin.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/courses/service/course.public.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/courses/service/course.public.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/admin/purchasedCourse.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/admin/purchasedCourse.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/admin/purchasedCourse.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/admin/purchasedCourse.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/admin/purchasedCourse.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/admin/purchasedCourse.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/admin/purchasedCourse.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/admin/purchasedCourse.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/public/purchasedCourse.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/public/purchasedCourse.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/public/purchasedCourse.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/dtos/public/purchasedCourse.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/entities/purchasedCourse.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/entities/purchasedCourse.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/purchasedCourse.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/purchasedCourses/purchasedCourse.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/admin/userLesson.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/admin/userLesson.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/admin/userLesson.detail.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/admin/userLesson.detail.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/admin/userLesson.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/admin/userLesson.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/admin/userLesson.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/admin/userLesson.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/public/userLesson.detail.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/public/userLesson.detail.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/public/userLesson.list.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/userLessons/dtos/public/userLesson.list.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/courses/userLessons/entities/userLesson.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/courses/userLessons/entities/userLesson.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookCategories/dtos/admin/bookCategory.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookCategories/dtos/admin/bookCategory.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookCategories/dtos/admin/bookCategory.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookCategories/dtos/admin/bookCategory.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookCategories/service/bookCategory.admin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookCategories/service/bookCategory.admin.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookCategories/service/bookCategory.public.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookCategories/service/bookCategory.public.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookLikes/controllers/bookLike.admin.controller.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookLikes/controllers/bookLike.admin.controller.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookLikes/dtos/admin/bookLike.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookLikes/dtos/admin/bookLike.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookLikes/dtos/admin/bookLike.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookLikes/dtos/admin/bookLike.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookLikes/entities/bookLike.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookLikes/entities/bookLike.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookLikes/service/bookLike.admin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookLikes/service/bookLike.admin.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookLikes/service/bookLike.public.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookLikes/service/bookLike.public.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookReviews/dtos/admin/bookReview.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookReviews/dtos/admin/bookReview.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookReviews/dtos/admin/bookReview.update.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookReviews/dtos/admin/bookReview.update.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/library/bookReviews/entities/bookReview.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/library/bookReviews/entities/bookReview.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/news/news/dtos/admin/news.create.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/news/news/dtos/admin/news.create.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/news/newsViews/dtos/admin/newsView.list.admin.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/news/newsViews/dtos/admin/newsView.list.admin.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/news/newsViews/dtos/public/newsView.create.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/news/newsViews/dtos/public/newsView.create.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/news/newsViews/entities/newsView.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/news/newsViews/entities/newsView.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/upload/multer.config.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/upload/multer.config.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/upload/upload.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/upload/upload.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/users/dtos/public/set-password.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/users/dtos/public/set-password.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/users/dtos/public/user.update.public.dto.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/users/dtos/public/user.update.public.dto.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/users/entities/user.entity.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/users/entities/user.entity.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/users/service/user.admin.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/users/service/user.admin.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/featuress/users/service/user.public.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/featuress/users/service/user.public.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/main.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -24,43 +159,54 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="3BWgTxS6uW4i3sb5QYcjiOzjrxf" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Node.js.courseLesson.admin.controller.ts.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "master",
-    "ignore.virus.scanning.warn.message": "true",
-    "junie.onboarding.icon.badge.shown": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "npm.start.executor": "Run",
-    "prettierjs.PrettierConfiguration.Package": "C:\\Users\\LAPTOP\\Desktop\\uzchess_nestjs\\node_modules\\prettier",
-    "to.speed.mode.migration.done": "true",
-    "ts.external.directory.path": "C:\\Users\\LAPTOP\\Desktop\\uzchess_nestjs\\node_modules\\typescript\\lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;JavaScript Debug.index.html.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Node.js.courseLesson.admin.controller.ts.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/LAPTOP/Desktop/uzchess_nestjs/uploads&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;npm.start.executor&quot;: &quot;Run&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;C:\\Users\\LAPTOP\\Desktop\\uzchess_nestjs\\node_modules\\prettier&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;C:\\Users\\LAPTOP\\Desktop\\uzchess_nestjs\\node_modules\\typescript\\lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\LAPTOP\Desktop\uzchess_nestjs\uploads" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\LAPTOP\Desktop\uzchess_nestjs\uzchess_nestjs" />
-      <recent name="C:\Users\LAPTOP\Desktop\uzchess_nestjs" />
-      <recent name="C:\Users\LAPTOP\Desktop\uzchess.com" />
-      <recent name="C:\Users\LAPTOP\Desktop\uzchess.com\uzchess_nestjs" />
+      <recent name="C:\Users\LAPTOP\Desktop\uzchess_nestjs\src\featuress\souvenirs\colors\public" />
+      <recent name="C:\Users\LAPTOP\Desktop\uzchess_nestjs\src\featuress\souvenirs\colors\admin" />
+      <recent name="C:\Users\LAPTOP\Desktop\uzchess_nestjs\src\featuress\souvenirs\souvenirLikes\public" />
+      <recent name="C:\Users\LAPTOP\Desktop\uzchess_nestjs\src\featuress\souvenirs\souvenirColors" />
+      <recent name="C:\Users\LAPTOP\Desktop\uzchess_nestjs\src\featuress\souvenirs\souvenirImages\public" />
     </key>
   </component>
   <component name="RunManager">
@@ -98,7 +244,25 @@
       <workItem from="1774879513053" duration="2154000" />
       <workItem from="1774941629588" duration="6755000" />
       <workItem from="1774953088085" duration="233000" />
-      <workItem from="1774953447111" duration="4982000" />
+      <workItem from="1774953447111" duration="7893000" />
+      <workItem from="1775033514548" duration="6459000" />
+      <workItem from="1775050549121" duration="53000" />
+      <workItem from="1775113785963" duration="2815000" />
+      <workItem from="1775120550804" duration="3673000" />
+      <workItem from="1775133243691" duration="6801000" />
+      <workItem from="1775220081884" duration="631000" />
+      <workItem from="1775223349049" duration="496000" />
+      <workItem from="1775556082232" duration="3300000" />
+      <workItem from="1775642190076" duration="7037000" />
+      <workItem from="1775729461410" duration="5308000" />
+      <workItem from="1775818671241" duration="14000" />
+      <workItem from="1775818696689" duration="10000" />
+      <workItem from="1775819338407" duration="45000" />
+      <workItem from="1775819547466" duration="22000" />
+      <workItem from="1775819839415" duration="14000" />
+      <workItem from="1775819912841" duration="26000" />
+      <workItem from="1775820527022" duration="43000" />
+      <workItem from="1776069812597" duration="2172000" />
     </task>
     <servers />
   </component>

@@ -1,4 +1,11 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  OneToMany,
+} from 'typeorm';
 import { BaseModel } from '../../../../core/base-model';
 import { Course } from '../../courses/entities/course.entity';
 import { CourseSection } from '../../courseSections/entities/courseSection.entity';
@@ -38,7 +45,10 @@ export class CourseLesson extends BaseModel {
   @JoinColumn({ name: 'courseId' })
   course!: Course;
 
-  @ManyToOne(() => CourseSection, (section) => section.lessons, { onDelete: 'CASCADE', eager: false })
+  @ManyToOne(() => CourseSection, (section) => section.lessons, {
+    onDelete: 'CASCADE',
+    eager: false,
+  })
   @JoinColumn({ name: 'courseSectionId' })
   section!: CourseSection;
 

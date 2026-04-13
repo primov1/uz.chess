@@ -10,7 +10,9 @@ export class NewsCreateAdminDto {
   @IsString()
   @MaxLength(128)
   @IsOptional()
-  @ApiPropertyOptional({ description: 'Image path — set automatically if file uploaded' })
+  @ApiPropertyOptional({
+    description: 'Image path — set automatically if file uploaded',
+  })
   image?: string;
 
   @IsString()

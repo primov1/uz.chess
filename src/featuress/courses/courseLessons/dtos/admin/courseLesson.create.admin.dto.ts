@@ -1,5 +1,11 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsBoolean, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
+import {
+  IsBoolean,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
 
 export class CourseLessonCreateAdminDto {
   @IsNumber()
@@ -23,13 +29,17 @@ export class CourseLessonCreateAdminDto {
   @IsString()
   @MaxLength(128)
   @IsOptional()
-  @ApiPropertyOptional({ description: 'Thumbnail path — set automatically if file uploaded' })
+  @ApiPropertyOptional({
+    description: 'Thumbnail path — set automatically if file uploaded',
+  })
   thumbnail?: string;
 
   @IsString()
   @MaxLength(256)
   @IsOptional()
-  @ApiPropertyOptional({ description: 'Video path — set automatically if file uploaded' })
+  @ApiPropertyOptional({
+    description: 'Video path — set automatically if file uploaded',
+  })
   video?: string;
 
   @IsNumber()

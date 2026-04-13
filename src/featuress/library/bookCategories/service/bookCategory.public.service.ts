@@ -15,7 +15,8 @@ export class BookCategoryPublicService {
 
   async getOne(id: number) {
     const item = await BookCategory.findOneBy({ id });
-    if (!item) throw new NotFoundException('BookCategory with given id not found');
+    if (!item)
+      throw new NotFoundException('BookCategory with given id not found');
     return plainToInstance(BookCategoryDetailPublicDto, item, {
       excludeExtraneousValues: true,
     });

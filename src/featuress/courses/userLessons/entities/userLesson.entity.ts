@@ -21,7 +21,10 @@ export class UserLesson extends BaseModel {
   isCompleted!: boolean;
 
   // ─── Relations ───────────────────────────────────────────────────────────────
-  @ManyToOne(() => CourseLesson, (lesson) => lesson.userLessons, { onDelete: 'CASCADE', eager: false })
+  @ManyToOne(() => CourseLesson, (lesson) => lesson.userLessons, {
+    onDelete: 'CASCADE',
+    eager: false,
+  })
   @JoinColumn({ name: 'courseLessonId' })
   lesson!: CourseLesson;
 

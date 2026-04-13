@@ -40,12 +40,16 @@ export class PlayerAdminController {
   @Get()
   @ApiOperation({ summary: 'Get all players' })
   @ApiOkResponse({ type: () => PlayerListAdminDto, isArray: true })
-  getAll() { return this.playerAdminService.getAll(); }
+  getAll() {
+    return this.playerAdminService.getAll();
+  }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get player by id' })
   @ApiOkResponse({ type: () => PlayerDetailAdminDto })
-  getOne(@Param('id') id: number) { return this.playerAdminService.getOne(id); }
+  getOne(@Param('id') id: number) {
+    return this.playerAdminService.getOne(id);
+  }
 
   @Post()
   @ApiOperation({ summary: 'Create player' })
@@ -66,7 +70,10 @@ export class PlayerAdminController {
   })
   @ApiOkResponse({ type: () => PlayerDetailAdminDto })
   @UseInterceptors(FileInterceptor('image', multerConfig))
-  create(@Body() payload: PlayerCreateAdminDto, @UploadedFile() file?: Express.Multer.File) {
+  create(
+    @Body() payload: PlayerCreateAdminDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
     return this.playerAdminService.create(payload, file);
   }
 
@@ -88,11 +95,17 @@ export class PlayerAdminController {
   })
   @ApiOkResponse({ type: () => PlayerDetailAdminDto })
   @UseInterceptors(FileInterceptor('image', multerConfig))
-  update(@Param('id') id: number, @Body() payload: PlayerUpdateAdminDto, @UploadedFile() file?: Express.Multer.File) {
+  update(
+    @Param('id') id: number,
+    @Body() payload: PlayerUpdateAdminDto,
+    @UploadedFile() file?: Express.Multer.File,
+  ) {
     return this.playerAdminService.update(id, payload, file);
   }
 
   @Delete(':id')
   @ApiOperation({ summary: 'Delete player' })
-  delete(@Param('id') id: number) { return this.playerAdminService.delete(id); }
+  delete(@Param('id') id: number) {
+    return this.playerAdminService.delete(id);
+  }
 }

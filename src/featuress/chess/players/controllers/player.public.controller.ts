@@ -12,10 +12,14 @@ export class PlayerPublicController {
   @Get()
   @ApiOperation({ summary: 'Get all players' })
   @ApiOkResponse({ type: () => PlayerListPublicDto, isArray: true })
-  getAll() { return this.playerPublicService.getAll(); }
+  getAll() {
+    return this.playerPublicService.getAll();
+  }
 
   @Get(':id')
   @ApiOperation({ summary: 'Get player by id' })
   @ApiOkResponse({ type: () => PlayerDetailPublicDto })
-  getOne(@Param('id') id: number) { return this.playerPublicService.getOne(id); }
+  getOne(@Param('id') id: number) {
+    return this.playerPublicService.getOne(id);
+  }
 }

@@ -1,4 +1,12 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, Unique, UpdateDateColumn } from 'typeorm';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  Unique,
+  UpdateDateColumn,
+} from 'typeorm';
 import { BaseModel } from '../../../../core/base-model';
 import { User } from '../../../users/entities/user.entity';
 import { News } from '../../news/entities/news.entity';

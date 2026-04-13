@@ -2,8 +2,16 @@ import { Column, Entity, JoinColumn, ManyToOne } from 'typeorm';
 import { BaseModel } from '../../../../core/base-model';
 import { Player } from '../../players/entities/player.entity';
 
-export enum MatchType { CLASSIC = 'classic', RAPID = 'rapid', BLITZ = 'blitz' }
-export enum WinnerType { FIRST = 'first', SECOND = 'second', DRAW = 'draw' }
+export enum MatchType {
+  CLASSIC = 'classic',
+  RAPID = 'rapid',
+  BLITZ = 'blitz',
+}
+export enum WinnerType {
+  FIRST = 'first',
+  SECOND = 'second',
+  DRAW = 'draw',
+}
 
 @Entity('matches')
 export class Match extends BaseModel {

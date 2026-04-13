@@ -10,12 +10,16 @@ import { CourseUpdateAdminDto } from '../dtos/admin/course.update.admin.dto';
 export class CourseAdminService {
   async getAll() {
     const items = await Course.find();
-    return plainToInstance(CourseListAdminDto, items, { excludeExtraneousValues: true });
+    return plainToInstance(CourseListAdminDto, items, {
+      excludeExtraneousValues: true,
+    });
   }
   async getOne(id: number) {
     const item = await Course.findOneBy({ id });
     if (!item) throw new NotFoundException('Course with given id not found');
-    return plainToInstance(CourseDetailAdminDto, item, { excludeExtraneousValues: true });
+    return plainToInstance(CourseDetailAdminDto, item, {
+      excludeExtraneousValues: true,
+    });
   }
   async create(payload: CourseCreateAdminDto) {
     const item = Course.create(payload as Course);
@@ -24,7 +28,12 @@ export class CourseAdminService {
   async update(id: number, payload: CourseUpdateAdminDto) {
     const item = await Course.findOneBy({ id });
     if (!item) throw new NotFoundException('Course with given id not found');
-    Object.assign(item, Object.fromEntries(Object.entries(payload).filter(([, v]) => v !== undefined)));
+    Object.assign(
+      item,
+      Object.fromEntries(
+        Object.entries(payload).filter(([, v]) => v !== undefined),
+      ),
+    );
     return Course.save(item);
   }
   async delete(id: number) {

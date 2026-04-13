@@ -1,6 +1,12 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import { IsEnum, IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
-import { ReportType } from '../../entities/report.entity';
+import {
+  IsEnum,
+  IsNumber,
+  IsOptional,
+  IsString,
+  MaxLength,
+} from 'class-validator';
+import { ReportType } from '../../entities/report.entity'; // userId JWT tokendan olinadi — foydalanuvchi o'zi yuboradi
 
 // userId JWT tokendan olinadi — foydalanuvchi o'zi yuboradi
 export class ReportCreatePublicDto {

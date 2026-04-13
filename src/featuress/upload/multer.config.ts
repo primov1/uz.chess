@@ -26,7 +26,9 @@ export const multerConfig = {
 export const multerVideoConfig = {
   storage,
   fileFilter: (req: any, file: Express.Multer.File, cb: any) => {
-    if (!file.mimetype.match(/^video\/(mp4|mpeg|webm|ogg|quicktime|x-msvideo)$/)) {
+    if (
+      !file.mimetype.match(/^video\/(mp4|mpeg|webm|ogg|quicktime|x-msvideo)$/)
+    ) {
       return cb(new BadRequestException('Only video files are allowed'), false);
     }
     cb(null, true);
@@ -41,9 +43,14 @@ export const multerMixedConfig = {
   storage,
   fileFilter: (req: any, file: Express.Multer.File, cb: any) => {
     const isImage = file.mimetype.match(/\/(jpg|jpeg|png|webp|gif|svg\+xml)$/);
-    const isVideo = file.mimetype.match(/^video\/(mp4|mpeg|webm|ogg|quicktime|x-msvideo)$/);
+    const isVideo = file.mimetype.match(
+      /^video\/(mp4|mpeg|webm|ogg|quicktime|x-msvideo)$/,
+    );
     if (!isImage && !isVideo) {
-      return cb(new BadRequestException('Only image or video files are allowed'), false);
+      return cb(
+        new BadRequestException('Only image or video files are allowed'),
+        false,
+      );
     }
     cb(null, true);
   },

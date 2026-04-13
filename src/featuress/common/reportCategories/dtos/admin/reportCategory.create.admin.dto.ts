@@ -1,12 +1,6 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
-import {
-  IsEnum,
-  IsNumber,
-  IsOptional,
-  IsString,
-  MaxLength,
-  Min,
-} from 'class-validator';
+import { IsNumber, IsOptional, IsString, MaxLength } from 'class-validator';
+
 export class ReportCategoryCreateAdminDto {
   @IsString()
   @MaxLength(64)

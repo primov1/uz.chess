@@ -1,5 +1,6 @@
 import { Expose } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
+
 export class ReportListAdminDto {
   @Expose()
   @ApiProperty()
@@ -26,4 +27,3 @@ export class ReportListAdminDto {
   @ApiProperty()
   createdAt?: any;
 }
-

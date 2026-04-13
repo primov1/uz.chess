@@ -17,7 +17,8 @@ export class BookCategoryAdminService {
 
   async getOne(id: number) {
     const item = await BookCategory.findOneBy({ id });
-    if (!item) throw new NotFoundException('BookCategory with given id not found');
+    if (!item)
+      throw new NotFoundException('BookCategory with given id not found');
     return plainToInstance(BookCategoryDetailAdminDto, item, {
       excludeExtraneousValues: true,
     });
@@ -30,7 +31,8 @@ export class BookCategoryAdminService {
 
   async update(id: number, payload: BookCategoryUpdateAdminDto) {
     const item = await BookCategory.findOneBy({ id });
-    if (!item) throw new NotFoundException('BookCategory with given id not found');
+    if (!item)
+      throw new NotFoundException('BookCategory with given id not found');
     Object.assign(
       item,
       Object.fromEntries(
@@ -42,7 +44,8 @@ export class BookCategoryAdminService {
 
   async delete(id: number) {
     const item = await BookCategory.findOneBy({ id });
-    if (!item) throw new NotFoundException('BookCategory with given id not found');
+    if (!item)
+      throw new NotFoundException('BookCategory with given id not found');
     await BookCategory.remove(item);
   }
 }

@@ -1,9 +1,18 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne } from 'typeorm';
-import { BaseModel } from '../../../../core/base-model';
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+} from 'typeorm';
+import { BaseModel } from '@/core/base-model';
 import { User } from '../../../users/entities/user.entity';
 import { ReportCategory } from '../../reportCategories/entities/reportCategory.entity';
 
-export enum ReportType { BOOK = 'book', COURSE = 'course' }
+export enum ReportType {
+  BOOK = 'book',
+  COURSE = 'course',
+}
 
 @Entity('reports')
 export class Report extends BaseModel {
@@ -27,7 +36,6 @@ export class Report extends BaseModel {
   @CreateDateColumn({ type: 'timestamp' })
   date!: Date;
 
-  // ─── Relations ───────────────────────────────────────────────────────────────
   @ManyToOne(() => User, { onDelete: 'CASCADE', eager: false })
   @JoinColumn({ name: 'userId' })
   user!: User;
